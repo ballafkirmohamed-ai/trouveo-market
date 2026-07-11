@@ -1,0 +1,9 @@
+{
+  "name": "Trouvéo Market",
+  "short_name": "Trouvéo",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070a16",
+  "theme_color": "#ff4fb8",
+  "icons": []
+}
