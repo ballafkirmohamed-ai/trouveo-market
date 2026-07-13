@@ -87,6 +87,42 @@
   </section>
 
   <section class="section">
+    <h2>Formulaires publics</h2>
+    <p class="sub">Les commerçants, la publicité et les abonnements peuvent utiliser les formulaires publics ci-dessous. Les espaces internes et d’administration restent entièrement cachés.</p>
+    <div class="cols">
+      <form class="card" name="merchant" method="POST" data-netlify="true" action="/merci.html">
+        <input type="hidden" name="form-name" value="merchant">
+        <input type="hidden" name="bot-field">
+        <h3>Commerçant</h3>
+        <p><label>Nom<input type="text" name="name" placeholder="Votre nom" required></label></p>
+        <p><label>Entreprise<input type="text" name="company" placeholder="Nom de l’entreprise"></label></p>
+        <p><label>Email<input type="email" name="email" placeholder="vous@example.com" required></label></p>
+        <p><label>Message<textarea name="message" placeholder="Expliquez votre besoin"></textarea></label></p>
+        <button type="submit">Envoyer</button>
+      </form>
+      <form class="card" name="publicity" method="POST" data-netlify="true" action="/merci.html">
+        <input type="hidden" name="form-name" value="publicity">
+        <input type="hidden" name="bot-field">
+        <h3>Publicité</h3>
+        <p><label>Nom<input type="text" name="name" placeholder="Votre nom" required></label></p>
+        <p><label>Entreprise<input type="text" name="company" placeholder="Nom de la structure"></label></p>
+        <p><label>Email<input type="email" name="email" placeholder="vous@example.com" required></label></p>
+        <p><label>Projet<textarea name="message" placeholder="Décrivez votre projet de visibilité"></textarea></label></p>
+        <button type="submit">Envoyer</button>
+      </form>
+      <form class="card" name="subscription" method="POST" data-netlify="true" action="/merci.html">
+        <input type="hidden" name="form-name" value="subscription">
+        <input type="hidden" name="bot-field">
+        <h3>Abonnement</h3>
+        <p><label>Nom<input type="text" name="name" placeholder="Votre nom" required></label></p>
+        <p><label>Email<input type="email" name="email" placeholder="vous@example.com" required></label></p>
+        <p><label>Intérêt<select name="interest"><option value="infos">Recevoir des infos</option><option value="offres">Recevoir les offres</option><option value="newsletter">Newsletter</option></select></label></p>
+        <button type="submit">S’inscrire</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="section">
     <h2>Transparence affiliation</h2>
     <p class="sub">Les liens de la boutique restent des recherches affiliées Amazon avec le tag partenaire trouveomarket-21. Une mention de transparence affiliation est visible pour les visiteurs.</p>
   </section>

@@ -4,7 +4,7 @@
 
 const OFFICIAL_URL = "https://trouveo-market.netlify.app";
 const AFFILIATE_HOSTS = ["amzn.to", "amazon.fr", "awin", "linksynergy", "tradetracker"];
-const STORAGE_ITEMS_KEY = "trouveo_market_items_v4_amazon_catalogue";
+const STORAGE_CATALOG_KEY = "trouveo_market_catalogue_v1";
 const PUBLIC_SECTIONS = ["market", "shop", "deals", "nearby"];
 
 function isAffiliateUrl(url) {
@@ -107,11 +107,12 @@ function readJsonStorage(key, fallback) {
 
 function persistItems(itemsList) {
   const safeItems = dedupeItems(itemsList.map(sanitizeItem));
-  localStorage.setItem(STORAGE_ITEMS_KEY, JSON.stringify(safeItems));
+  localStorage.setItem(STORAGE_CATALOG_KEY, JSON.stringify(safeItems));
   return safeItems;
 }
 
 const BASE_ITEMS = [
+  { type: "product", title: "SAVANA Smash Party", category: "Produit", price: "À consulter", city: "France", desc: "Produit à découvrir dans la boutique publique de Trouvéo Market.", cta: "Voir le produit", url: "https://www.amazon.fr/s?k=savana+smash+party&tag=trouveomarket-21", keywords: "savana smash party produit boutique" },
   { type: "product", title: "Recherche Amazon · support téléphone voiture", category: "Recherche affiliée", price: "À comparer", city: "France", desc: "Recherche partenaire Amazon pour un support téléphone voiture.", cta: "Voir la recherche Amazon", url: "https://www.amazon.fr/s?k=support+t%C3%A9l%C3%A9phone+voiture&tag=trouveomarket-21", keywords: "telephone voiture support gps auto tech" },
   { type: "product", title: "Recherche Amazon · aspirateur voiture compact", category: "Recherche affiliée", price: "À comparer", city: "France", desc: "Recherche partenaire Amazon pour un aspirateur compact et pratique en déplacement.", cta: "Voir la recherche Amazon", url: "https://www.amazon.fr/s?k=aspirateur+voiture+compact&tag=trouveomarket-21", keywords: "aspirateur voiture auto nettoyage" },
   { type: "product", title: "Recherche Amazon · organisateur coffre voiture", category: "Recherche affiliée", price: "À comparer", city: "France", desc: "Recherche partenaire Amazon pour un accessoire de rangement voiture.", cta: "Voir la recherche Amazon", url: "https://www.amazon.fr/s?k=organisateur+coffre+voiture&tag=trouveomarket-21", keywords: "organisateur coffre voiture rangement" },
@@ -123,8 +124,9 @@ const BASE_ITEMS = [
 
 function loadItemsWithBaseCatalog() {
   const legacyItems = readJsonStorage("trouveo_market_items_v3", []);
-  const saved = readJsonStorage(STORAGE_ITEMS_KEY, []);
-  const merged = dedupeItems([...BASE_ITEMS.map(sanitizeItem), ...saved, ...legacyItems]);
+  const previousCatalog = readJsonStorage("trouveo_market_items_v4_amazon_catalogue", []);
+  const saved = readJsonStorage(STORAGE_CATALOG_KEY, []);
+  const merged = dedupeItems([...BASE_ITEMS.map(sanitizeItem), ...saved, ...previousCatalog, ...legacyItems]);
   return persistItems(merged);
 }
 
