@@ -1,30 +1,15 @@
-// TROUVÉO MARKET — AMAZON PARTENAIRES BRANCHÉ
-// ID Partenaire Amazon France : trouveomarket-21
-// Les liens Amazon de la boutique incluent maintenant le tag partenaire.
-// Règle : conserver une mention claire "liens affiliés" sur le site et les publications.
-// Après 3 ventes éligibles, Amazon pourra examiner le site comme indiqué dans ton espace Partenaires.
+// TROUVÉO MARKET — VITRINE PUBLIQUE PROFESSIONNELLE
+// Les liens Amazon restent des recherches affiliées avec le tag partenaire trouveomarket-21.
+// Les sections internes et administratives ne sont pas exposées dans la version publique.
 
 const OFFICIAL_URL = "https://trouveo-market.netlify.app";
 const AFFILIATE_HOSTS = ["amzn.to", "amazon.fr", "awin", "linksynergy", "tradetracker"];
 const STORAGE_ITEMS_KEY = "trouveo_market_items_v4_amazon_catalogue";
-const STORAGE_SUBS_KEY = "trouveo_market_subs_v4_amazon_catalogue";
+const PUBLIC_SECTIONS = ["market", "shop", "deals", "nearby"];
 
 function isAffiliateUrl(url) {
   const raw = String(url || "").toLowerCase();
   return AFFILIATE_HOSTS.some(host => raw.includes(host)) || raw.includes("tag=trouveomarket-21");
-}
-
-function normalizeAffiliateItem(item) {
-  const next = { ...item };
-  if (isAffiliateUrl(next.url)) {
-    next.type = "product";
-    if (!next.category || /bon plan/i.test(next.category)) {
-      next.category = "Affiliation / À classer";
-    }
-    next.cta = "Voir le produit";
-    next.keywords = ((next.keywords || "") + " affiliation amazon boutique produit").trim();
-  }
-  return next;
 }
 
 function sanitizeText(value) {
@@ -64,7 +49,14 @@ function sanitizeItem(item) {
     url: sanitizeUrl(item?.url),
     keywords: sanitizeText(item?.keywords)
   };
-  return normalizeAffiliateItem(safe);
+
+  if (isAffiliateUrl(safe.url)) {
+    safe.type = "product";
+    safe.category = safe.category || "Recherche affiliée";
+    safe.cta = safe.cta || "Voir la recherche Amazon";
+    safe.keywords = `${safe.keywords || ""} affiliation amazon boutique produit`.trim();
+  }
+  return safe;
 }
 
 function normalizeText(s) {
@@ -119,52 +111,15 @@ function persistItems(itemsList) {
   return safeItems;
 }
 
-function persistSubs(subsList) {
-  const safeSubs = subsList
-    .filter(Boolean)
-    .map(sub => ({
-      ...sub,
-      name: sanitizeText(sub?.name),
-      price: sanitizeText(sub?.price),
-      desc: sanitizeText(sub?.desc)
-    }))
-    .filter(sub => sub.name);
-
-  const deduped = [];
-  const seenNames = new Set();
-  safeSubs.forEach(sub => {
-    const key = normalizeText(sub.name || "");
-    if (!key || seenNames.has(key)) return;
-    seenNames.add(key);
-    deduped.push(sub);
-  });
-
-  localStorage.setItem(STORAGE_SUBS_KEY, JSON.stringify(deduped));
-  return deduped;
-}
-
 const BASE_ITEMS = [
-  { type: "product", title: "Support téléphone voiture", category: "Auto / Tech", price: "À comparer", city: "France", desc: "Support pratique pour GPS et téléphone en voiture.", cta: "Voir produit", url: "https://www.amazon.fr/s?k=support+t%C3%A9l%C3%A9phone+voiture&tag=trouveomarket-21", keywords: "telephone voiture support gps auto tech" },
-  { type: "product", title: "Aspirateur voiture compact", category: "Auto / Tech", price: "À comparer", city: "France", desc: "Petit aspirateur pour garder l’intérieur de la voiture propre.", cta: "Voir produit", url: "https://www.amazon.fr/s?k=aspirateur+voiture+compact&tag=trouveomarket-21", keywords: "aspirateur voiture auto nettoyage" },
-  { type: "product", title: "Organisateur coffre voiture", category: "Auto / Rangement", price: "À comparer", city: "France", desc: "Rangement simple pour courses, outils et accessoires voiture.", cta: "Voir produit", url: "https://www.amazon.fr/s?k=organisateur+coffre+voiture&tag=trouveomarket-21", keywords: "organisateur coffre voiture rangement" },
-  { type: "product", title: "Chargeur USB-C voiture", category: "Auto / Tech", price: "À comparer", city: "France", desc: "Accessoire utile pour charger téléphone et appareils en déplacement.", cta: "Voir produit", url: "https://www.amazon.fr/s?k=chargeur+usb+c+voiture&tag=trouveomarket-21", keywords: "chargeur usbc voiture auto tech" },
-  { type: "product", title: "Organisateur de câbles bureau", category: "Bureau / Maison", price: "À comparer", city: "France", desc: "Pour ranger les câbles et garder un bureau propre.", cta: "Voir produit", url: "https://www.amazon.fr/s?k=organisateur+c%C3%A2bles+bureau&tag=trouveomarket-21", keywords: "bureau cables rangement maison" },
-  { type: "product", title: "Support ordinateur portable", category: "Bureau / Tech", price: "À comparer", city: "France", desc: "Pour améliorer la posture et libérer de l’espace de travail.", cta: "Voir produit", url: "https://www.amazon.fr/s?k=support+ordinateur+portable&tag=trouveomarket-21", keywords: "support ordinateur portable bureau tech" }
+  { type: "product", title: "Recherche Amazon · support téléphone voiture", category: "Recherche affiliée", price: "À comparer", city: "France", desc: "Recherche partenaire Amazon pour un support téléphone voiture.", cta: "Voir la recherche Amazon", url: "https://www.amazon.fr/s?k=support+t%C3%A9l%C3%A9phone+voiture&tag=trouveomarket-21", keywords: "telephone voiture support gps auto tech" },
+  { type: "product", title: "Recherche Amazon · aspirateur voiture compact", category: "Recherche affiliée", price: "À comparer", city: "France", desc: "Recherche partenaire Amazon pour un aspirateur compact et pratique en déplacement.", cta: "Voir la recherche Amazon", url: "https://www.amazon.fr/s?k=aspirateur+voiture+compact&tag=trouveomarket-21", keywords: "aspirateur voiture auto nettoyage" },
+  { type: "product", title: "Recherche Amazon · organisateur coffre voiture", category: "Recherche affiliée", price: "À comparer", city: "France", desc: "Recherche partenaire Amazon pour un accessoire de rangement voiture.", cta: "Voir la recherche Amazon", url: "https://www.amazon.fr/s?k=organisateur+coffre+voiture&tag=trouveomarket-21", keywords: "organisateur coffre voiture rangement" },
+  { type: "product", title: "Recherche Amazon · chargeur USB-C voiture", category: "Recherche affiliée", price: "À comparer", city: "France", desc: "Recherche partenaire Amazon pour un chargeur USB-C adapté à la route.", cta: "Voir la recherche Amazon", url: "https://www.amazon.fr/s?k=chargeur+usb+c+voiture&tag=trouveomarket-21", keywords: "chargeur usbc voiture auto tech" },
+  { type: "product", title: "Recherche Amazon · organisateur de câbles bureau", category: "Recherche affiliée", price: "À comparer", city: "France", desc: "Recherche partenaire Amazon pour un rangement de bureau simple et propre.", cta: "Voir la recherche Amazon", url: "https://www.amazon.fr/s?k=organisateur+c%C3%A2bles+bureau&tag=trouveomarket-21", keywords: "bureau cables rangement maison" },
+  { type: "deal", title: "Recherche locale · restaurant", category: "Bons plans", price: "À consulter", city: "France", desc: "Ouverture de la recherche Google Maps autour de votre position ou de la ville indiquée.", cta: "Ouvrir Maps", url: "https://www.google.com/maps/search/restaurant", keywords: "restaurant local bon plan" },
+  { type: "deal", title: "Recherche locale · coiffeur", category: "Bons plans", price: "À consulter", city: "France", desc: "Recherche locale rapide pour les services de proximité.", cta: "Ouvrir Maps", url: "https://www.google.com/maps/search/coiffeur", keywords: "coiffeur salon local" }
 ];
-
-const BASE_SUBS = [
-  { name: "Découverte", price: "0 €", desc: "Fiche simple en attente de validation, sans mise en avant." },
-  { name: "Visible", price: "10 €/mois", desc: "Présence dans l’onglet Bons plans avec lien, ville et catégorie." },
-  { name: "Boost", price: "25 €/mois", desc: "Mise en avant prioritaire + QR code offre + texte publicitaire." },
-  { name: "Sur mesure", price: "Personnalisé", desc: "Formule négociée pour marché, association, commerce ou campagne locale." }
-];
-
-const AD_TEXTS = {
-  client: "🔥 Trouvéo Market est lancé !\n\nUne seule plateforme pour découvrir :\n🛍️ des produits utiles\n📍 des bons plans autour de vous\n🏪 des commerçants locaux\n🎯 des offres partenaires\n📲 un accès rapide par QR code\n\nDécouvrez Trouvéo Market ici :\nhttps://trouveo-market.netlify.app",
-  merchant: "Vous êtes commerçant, artisan ou prestataire ?\n\nTrouvéo Market vous permet de proposer une offre, une promotion ou une mise en avant locale.\n\nObjectif :\n✅ gagner en visibilité\n✅ publier un bon plan\n✅ recevoir des demandes\n✅ apparaître dans une plateforme simple à partager par QR code\n\nDemandez votre mise en avant ici :\nhttps://trouveo-market.netlify.app",
-  tiktok: "Nouvelle idée locale 🚀\n\nUne seule plateforme pour chercher des produits utiles, découvrir des bons plans et mettre en avant les commerçants autour de vous.\n\nÇa s’appelle Trouvéo Market.\n\nBoutique + bons plans + commerçants + QR code.\nLien : https://trouveo-market.netlify.app\n\n#trouveo #bonsplans #commerceLocal #boutiqueenligne #startupfrance",
-  whatsapp: "Salut 👋\n\nJe te partage Trouvéo Market : une plateforme qui regroupe boutique, bons plans, offres locales et commerçants.\n\nLien : https://trouveo-market.netlify.app"
-};
 
 function loadItemsWithBaseCatalog() {
   const legacyItems = readJsonStorage("trouveo_market_items_v3", []);
@@ -173,22 +128,14 @@ function loadItemsWithBaseCatalog() {
   return persistItems(merged);
 }
 
-function loadSubscriptions() {
-  const legacySubs = readJsonStorage("trouveo_market_subs_v3", []);
-  const saved = readJsonStorage(STORAGE_SUBS_KEY, []);
-  return persistSubs([...BASE_SUBS, ...saved, ...legacySubs]);
-}
-
 let items = loadItemsWithBaseCatalog();
-let subs = loadSubscriptions();
 let lastPosition = null;
 
 function show(id) {
-  ["market", "shop", "deals", "nearby", "merchant", "subscriptions", "publicity", "owner"].forEach(name => {
+  PUBLIC_SECTIONS.forEach(name => {
     const el = document.getElementById(name);
     if (el) el.classList.toggle("hidden", name !== id);
   });
-  save();
   render();
 }
 
@@ -199,21 +146,23 @@ function filtered(type) {
 }
 
 function mapsUrl(q, city) {
-  if (lastPosition) return `https://www.google.com/maps/search/${encodeURIComponent(q || "commerce")}/@${lastPosition.lat},${lastPosition.lng},14z`;
-  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent((q || "commerce") + " " + (city || ""));
+  const query = [q, city].filter(Boolean).join(" ").trim() || "commerce";
+  if (lastPosition) {
+    return `https://www.google.com/maps/search/${encodeURIComponent(query)}/@${lastPosition.lat.toFixed(6)},${lastPosition.lng.toFixed(6)},14z`;
+  }
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(query);
 }
 
 function actionUrl(item) {
   const raw = sanitizeUrl(item?.url || "").trim();
   if (!raw) return mapsUrl(item.title, item.city);
-  if (raw.startsWith("#merchant")) return OFFICIAL_URL + "/#merchant";
   if (/^https?:\/\//i.test(raw) || /^mailto:/i.test(raw) || /^tel:/i.test(raw)) return raw;
   if (/^[+0-9 .()\-]{6,}$/.test(raw)) return "tel:" + raw.replace(/[^+0-9]/g, "");
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(raw)) return "mailto:" + raw;
   return "https://www.google.com/search?q=" + encodeURIComponent(raw);
 }
 
-function card(item, idx) {
+function card(item) {
   const label = item.type === "product" ? "Boutique" : item.type === "deal" ? "Bon plan" : "Service";
   const safeLabel = escapeHtml(`${label} · ${item.category}`);
   const safeTitle = escapeHtml(item.title);
@@ -221,118 +170,15 @@ function card(item, idx) {
   const safeDesc = escapeHtml(item.desc);
   const safeCity = escapeHtml(item.city);
   const safeCta = escapeHtml(item.cta || "Voir");
-  return `<article class="card"><div class="tag">${safeLabel}</div><h3>${safeTitle}</h3><div class="price">${safePrice}</div><p>${safeDesc}</p><p><b>Zone :</b> ${safeCity}</p><div class="actions"><a class="btn" target="_blank" href="${actionUrl(item)}">${safeCta}</a><a class="btn alt" target="_blank" href="${mapsUrl(item.title, item.city)}">Autour</a></div></article>`;
+  return `<article class="card"><div class="tag">${safeLabel}</div><h3>${safeTitle}</h3><div class="price">${safePrice}</div><p>${safeDesc}</p><p><b>Zone :</b> ${safeCity}</p><div class="actions"><a class="btn" target="_blank" rel="noopener noreferrer" href="${actionUrl(item)}">${safeCta}</a><a class="btn alt" target="_blank" rel="noopener noreferrer" href="${mapsUrl(item.title, item.city)}">Autour</a></div></article>`;
 }
 
 function render() {
   const shop = document.getElementById("shop");
   const deals = document.getElementById("deals");
-  const subsGrid = document.getElementById("subsGrid");
-  if (shop) shop.innerHTML = filtered("product").map((item, idx) => card(item, idx)).join("") || "<p class='sub'>Aucun produit.</p>";
-  if (deals) deals.innerHTML = filtered("deal").map((item, idx) => card(item, idx)).join("") || "<p class='sub'>Aucun bon plan.</p>";
-  if (subsGrid) subsGrid.innerHTML = subs.map(sub => `<article class="card"><div class="tag">Formule</div><h3>${escapeHtml(sub.name)}</h3><div class="price">${escapeHtml(sub.price)}</div><p>${escapeHtml(sub.desc)}</p><div class="actions"><button class="btn" onclick="selectPlan('${String(sub.name).replace(/'/g, "\\'")}')">Choisir</button></div></article>`).join("");
+  if (shop) shop.innerHTML = filtered("product").map(card).join("") || "<p class='sub'>Aucun résultat pour cette recherche.</p>";
+  if (deals) deals.innerHTML = filtered("deal").map(card).join("") || "<p class='sub'>Aucun bon plan pour l’instant.</p>";
   renderNearbyCards();
-  renderAds();
-}
-
-function selectPlan(name) {
-  show("merchant");
-  const sel = document.getElementById("mSub");
-  if (sel) sel.value = name;
-}
-
-function submitMerchantLocal() {
-  const title = sanitizeText(document.getElementById("mName")?.value || "");
-  if (!title) return alert("Nom du commerce obligatoire.");
-  items.unshift({
-    type: "deal",
-    title,
-    category: sanitizeText(document.getElementById("mCategory")?.value || ""),
-    price: sanitizeText(document.getElementById("mOffer")?.value || "Offre à valider"),
-    city: sanitizeText(document.getElementById("mCity")?.value || "Local"),
-    desc: sanitizeText((document.getElementById("mDesc")?.value || "Demande commerçant à valider.") + " · Formule demandée : " + (document.getElementById("mSub")?.value || "")),
-    cta: "Voir / contacter",
-    url: sanitizeUrl(document.getElementById("mLink")?.value || OFFICIAL_URL),
-    keywords: "demande commerçant publicité partenaire"
-  });
-  items = dedupeItems(items);
-  save();
-  alert("Demande ajoutée localement.");
-  show("deals");
-}
-
-function unlock() {
-  alert("L’accès propriétaire public est désactivé. Une authentification serveur est nécessaire avant toute modification depuis le navigateur.");
-}
-
-function addOwnerItem() {
-  const title = sanitizeText(document.getElementById("oTitle")?.value || "");
-  if (!title) return alert("Titre obligatoire.");
-
-  const rawUrl = sanitizeUrl(document.getElementById("oUrl")?.value || "");
-  const affiliate = isAffiliateUrl(rawUrl);
-  const selectedType = document.getElementById("oType")?.value || "deal";
-  const item = {
-    type: affiliate ? "product" : selectedType,
-    title,
-    category: sanitizeText(document.getElementById("oCategory")?.value || "") || (affiliate ? "Affiliation / À classer" : "À classer"),
-    price: sanitizeText(document.getElementById("oPrice")?.value || "") || "À définir",
-    city: sanitizeText(document.getElementById("oCity")?.value || "") || "France",
-    desc: sanitizeText(document.getElementById("oDesc")?.value || "") || "",
-    cta: affiliate ? "Voir le produit" : "Voir",
-    url: rawUrl || mapsUrl(title, document.getElementById("oCity")?.value || ""),
-    keywords: title + (affiliate ? " affiliation amazon boutique produit" : "")
-  };
-
-  items.unshift(sanitizeItem(item));
-  items = dedupeItems(items);
-  save();
-  ["oTitle", "oPrice", "oCategory", "oCity", "oUrl", "oDesc"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = "";
-  });
-  render();
-
-  if (affiliate) {
-    alert("Lien affilié détecté : ajouté automatiquement dans Boutique.");
-    show("shop");
-  } else {
-    alert("Ajouté.");
-  }
-}
-
-function addSubscription() {
-  const name = sanitizeText(document.getElementById("sName")?.value || "");
-  if (!name) return alert("Nom de formule obligatoire.");
-  subs.push({
-    name,
-    price: sanitizeText(document.getElementById("sPrice")?.value || "") || "Sur mesure",
-    desc: sanitizeText(document.getElementById("sDesc")?.value || "") || "Formule personnalisée."
-  });
-  subs = persistSubs(subs);
-  ["sName", "sPrice", "sDesc"].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = "";
-  });
-  render();
-}
-
-function exportItems() {
-  const blob = new Blob([JSON.stringify({ items, subs }, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "trouveo_market_donnees.json";
-  a.click();
-  URL.revokeObjectURL(a.href);
-}
-
-function save() {
-  try {
-    items = persistItems(items);
-    subs = persistSubs(subs);
-  } catch (error) {
-    console.warn("Storage inaccessible", error);
-  }
 }
 
 function showQR() {
@@ -350,22 +196,29 @@ function downloadQR() {
 }
 
 function copyLink() {
-  navigator.clipboard.writeText(OFFICIAL_URL);
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(OFFICIAL_URL).catch(() => {});
+  }
   alert("Lien officiel copié.");
+}
+
+function searchNearby(term) {
+  const city = document.getElementById("nearbyCity")?.value || "";
+  window.open(mapsUrl(term, city), "_blank", "noopener,noreferrer");
 }
 
 function openNearby() {
   const q = document.getElementById("nearbyQuery")?.value || document.getElementById("q")?.value || "bons plans";
   const city = document.getElementById("nearbyCity")?.value || "";
-  window.open(mapsUrl(q, city), "_blank");
+  window.open(mapsUrl(q, city), "_blank", "noopener,noreferrer");
 }
 
 function renderNearbyCards() {
   const box = document.getElementById("nearbyCards");
   if (!box) return;
-  const presets = ["restaurant", "téléphone", "supermarché", "coiffeur", "garage", "bricolage", "électroménager", "pharmacie"];
+  const presets = ["restaurant", "chocolatier", "supermarché", "téléphone", "coiffeur", "garage", "bricolage", "électroménager", "pharmacie"];
   const city = document.getElementById("nearbyCity")?.value || "";
-  box.innerHTML = presets.map(p => `<article class="card"><div class="tag">Autour</div><h3>${escapeHtml(p)}</h3><p>Recherche rapide autour de toi ou de la ville indiquée.</p><div class="actions"><a class="btn alt" target="_blank" href="${mapsUrl(p, city)}">Ouvrir Maps</a></div></article>`).join("");
+  box.innerHTML = presets.map(p => `<article class="card"><div class="tag">Autour</div><h3>${escapeHtml(p)}</h3><p>Recherche rapide autour de vous ou dans la ville indiquée.</p><div class="actions"><button class="btn alt" type="button" onclick="searchNearby('${String(p).replace(/'/g, "\\'")}')">Ouvrir Maps</button></div></article>`).join("");
 }
 
 function useGeo() {
@@ -376,17 +229,24 @@ function useGeo() {
     box.textContent = "Géolocalisation non disponible sur ce navigateur.";
     return;
   }
-  box.textContent = "Demande de localisation en cours…";
+
+  box.textContent = "Demande d’autorisation de géolocalisation…";
   navigator.geolocation.getCurrentPosition(
     pos => {
       lastPosition = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-      box.textContent = "Position détectée. Les boutons Autour utilisent maintenant ta position.";
+      const accuracy = Number.isFinite(pos.coords.accuracy) ? `${Math.round(pos.coords.accuracy)} m` : "précision inconnue";
+      box.textContent = `Position détectée à ${lastPosition.lat.toFixed(4)}, ${lastPosition.lng.toFixed(4)} (${accuracy}). Les recherches Google Maps utilisent maintenant votre position.`;
       show("nearby");
       render();
     },
-    () => {
-      box.textContent = "Localisation refusée ou bloquée. Tu peux utiliser une ville manuellement.";
-    }
+    error => {
+      let detail = "La géolocalisation a été refusée ou bloquée.";
+      if (error.code === 1) detail = "Autorisation de géolocalisation refusée. Vous pouvez saisir une ville manuellement.";
+      if (error.code === 2) detail = "Position introuvable pour le moment. Vérifiez votre réseau ou votre appareil.";
+      if (error.code === 3) detail = "Le délai de localisation a expiré. Réessayez ou saisissez une ville.";
+      box.textContent = detail;
+    },
+    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
   );
 }
 
@@ -397,32 +257,14 @@ function startVoice() {
   rec.lang = "fr-FR";
   rec.interimResults = false;
   rec.onresult = e => {
-    document.getElementById("q").value = e.results[0][0].transcript;
+    const value = e.results[0][0].transcript;
+    const input = document.getElementById("q");
+    if (input) input.value = value;
     render();
   };
   rec.onerror = () => alert("Micro bloqué ou refusé. Autorise le micro dans le navigateur.");
   rec.start();
 }
 
-function labelAd(key) {
-  return { client: "Texte client", merchant: "Texte commerçant", tiktok: "Script TikTok", whatsapp: "Message WhatsApp" }[key] || key;
-}
-
-function renderAds() {
-  const box = document.getElementById("adTexts");
-  if (!box) return;
-  box.innerHTML = Object.entries(AD_TEXTS).map(([key, text]) => `<article class="card"><div class="tag">Publicité</div><h3>${escapeHtml(labelAd(key))}</h3><div class="copybox" id="ad_${key}">${escapeHtml(text)}</div><div class="actions"><button class="btn" onclick="copyAd('${key}')">Copier</button><button class="btn alt" onclick="shareAd('${key}')">Partager</button></div></article>`).join("");
-}
-
-function copyAd(key) {
-  navigator.clipboard.writeText(AD_TEXTS[key]);
-  alert("Texte copié.");
-}
-
-function shareAd(key) {
-  const text = AD_TEXTS[key];
-  if (navigator.share) navigator.share({ title: "Trouvéo Market", text, url: OFFICIAL_URL });
-  else window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
-}
-
+show("market");
 render();

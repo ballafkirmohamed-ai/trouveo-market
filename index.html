@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Trouvéo Market — Boutique, Bons Plans, Commerçants</title>
-<meta name="description" content="Trouvéo Market : boutique affiliable, bons plans, commerçants, publicité locale, QR code, géolocalisation et espace propriétaire.">
+<title>Trouvéo Market — vitrine publique professionnelle</title>
+<meta name="description" content="Trouvéo Market est une vitrine publique professionnelle pour découvrir des offres, des bons plans, des services et des recherches locales autour de soi.">
 <meta property="og:title" content="Trouvéo Market">
-<meta property="og:description" content="Boutique, bons plans, commerçants et offres partenaires dans une seule plateforme.">
+<meta property="og:description" content="Vitrine publique professionnelle pour découvrir des offres, services et bons plans autour de soi.">
 <meta property="og:url" content="https://trouveo-market.netlify.app">
 <meta property="og:type" content="website">
 <link rel="manifest" href="manifest.json">
@@ -15,18 +15,15 @@
 <body>
 <div class="wrap" id="app">
   <section class="hero">
-    <span class="badge">Plateforme unique connectée — correctif lien Voir</span>
+    <span class="badge">Vitrine publique professionnelle</span>
     <h1>Trouvéo Market</h1>
-    <p class="sub">Boutique, bons plans, commerçants, publicités, abonnements personnalisés, QR code officiel, vocal, géolocalisation et formulaires Netlify dans une seule plateforme.</p>
+    <p class="sub">Découvrez une présentation claire de produits utiles, bons plans et services autour de vous, avec des liens affiliés transparents et un accès rapide par QR code.</p>
     <div class="nav">
-      <button onclick="show('market')">Accueil</button>
-      <button class="alt" onclick="show('shop')">Boutique</button>
-      <button class="alt" onclick="show('deals')">Bons plans</button>
-      <button class="darkbtn" onclick="show('nearby')">Autour de moi</button>
-      <button class="darkbtn" onclick="show('merchant')">Commerçant</button>
-      <button class="darkbtn" onclick="show('subscriptions')">Abonnements</button>
-      <button class="darkbtn" onclick="show('publicity')">Publicité</button>
-      <button class="darkbtn" onclick="showQR()">QR code</button>
+      <button type="button" onclick="show('market')">Accueil</button>
+      <button class="alt" type="button" onclick="show('shop')">Boutique</button>
+      <button class="alt" type="button" onclick="show('deals')">Bons plans</button>
+      <button class="darkbtn" type="button" onclick="show('nearby')">Autour de moi</button>
+      <button class="darkbtn" type="button" onclick="showQR()">QR code</button>
     </div>
     <div class="toolbar">
       <input id="q" placeholder="Chercher : téléphone, restaurant, rangement, service…" oninput="render()">
@@ -36,8 +33,8 @@
         <option value="deal">Bons plans</option>
         <option value="service">Services</option>
       </select>
-      <button onclick="startVoice()">🎙️ Parler</button>
-      <button class="alt" onclick="useGeo()">📍 Autour de moi</button>
+      <button type="button" onclick="startVoice()">🎙️ Parler</button>
+      <button class="alt" type="button" onclick="useGeo()">📍 Localiser</button>
     </div>
     <div id="locationStatus" class="notice hidden"></div>
     <div id="qrBox" class="section hidden">
@@ -45,37 +42,32 @@
       <p class="sub">QR officiel connecté à : <b>https://trouveo-market.netlify.app</b></p>
       <img id="qrImg" src="assets/qr-trouveo-market.png" alt="QR code Trouvéo Market">
       <div class="actions">
-        <button class="alt" onclick="downloadQR()">Télécharger QR</button>
-        <button onclick="copyLink()">Copier le lien</button>
+        <button class="alt" type="button" onclick="downloadQR()">Télécharger QR</button>
+        <button type="button" onclick="copyLink()">Copier le lien</button>
       </div>
     </div>
   </section>
 
   <section id="market" class="section">
-    <h2>Plateforme complète</h2>
+    <h2>Une vitrine publique claire et professionnelle</h2>
     <div class="cols">
-      <div class="mini"><h3>🛍️ Boutique affiliable</h3><p class="sub">Produits, objets, services, liens affiliés à brancher quand les comptes sont validés.</p></div>
-      <div class="mini"><h3>🔥 Bons plans internes</h3><p class="sub">Promos et pubs ajoutées par le propriétaire ou demandées par commerçants.</p></div>
-      <div class="mini"><h3>📍 Autour de moi</h3><p class="sub">Recherche magasins/restaurants/services autour via Google Maps.</p></div>
-      <div class="mini"><h3>📩 Formulaires connectés</h3><p class="sub">Demandes commerçants et publicités récupérables dans Netlify Forms après redéploiement.</p></div>
-      <div class="mini"><h3>📣 Publicité</h3><p class="sub">Textes prêts pour client, commerçant, WhatsApp et TikTok.</p></div>
-      <div class="mini"><h3>🔐 Propriétaire</h3><p class="sub">Ajout, validation locale, export, abonnements personnalisés.</p></div>
+      <div class="mini"><h3>🛍️ Boutique</h3><p class="sub">Des recherches utiles et des liens affiliés transparents, avec mention d’affiliation sur chaque parcours.</p></div>
+      <div class="mini"><h3>🔥 Bons plans</h3><p class="sub">Des suggestions locales et des offres à découvrir sans exposer d’espace interne.</p></div>
+      <div class="mini"><h3>📍 Autour de moi</h3><p class="sub">Des recherches Google Maps liées à votre position ou à une ville saisie.</p></div>
+      <div class="mini"><h3>📲 QR code</h3><p class="sub">Un accès simple à partager sur mobile, ordinateur et supports imprimés.</p></div>
     </div>
 
     <div class="notice">
-      La boutique reste consultable et les liens Amazon, formulaires Netlify et QR code sont conservés. Les éléments sont rafraîchis automatiquement depuis le catalogue sécurisé.
+      Cette version publique met en avant une présentation professionnelle de Trouvéo Market, sans exposer les espaces internes ou les fonctions d’administration.
     </div>
 
     <div class="check">
       <div class="ok">✅ QR officiel intégré</div>
-      <div class="ok">✅ Publicité intégrée</div>
-      <div class="ok">✅ Formulaires Netlify intégrés</div>
-      <div class="ok">✅ Micro intégré</div>
-      <div class="ok">✅ Géolocalisation intégrée</div>
-      <div class="ok">✅ Google Maps autour</div>
-      <div class="ok">✅ Abonnements personnalisés</div>
-      <div class="warn">⚠️ Paiement Stripe réel à brancher quand compte prêt</div>
-      <div class="warn">⚠️ Affiliation réelle à brancher quand comptes validés</div>
+      <div class="ok">✅ Géolocalisation active</div>
+      <div class="ok">✅ Google Maps local</div>
+      <div class="ok">✅ Micro vocal</div>
+      <div class="ok">✅ Liens Amazon affiliés</div>
+      <div class="ok">✅ Transparence affiliation</div>
     </div>
   </section>
 
@@ -83,104 +75,23 @@
   <section id="deals" class="grid hidden"></section>
 
   <section id="nearby" class="section hidden">
-    <h2>Magasins et services autour</h2>
-    <p class="sub">Recherche rapide vers Google Maps, avec ville ou géolocalisation.</p>
+    <h2>Autour de moi</h2>
+    <p class="sub">Recherchez des commerces, services ou adresses utiles autour de vous, avec géolocalisation ou ville indiquée.</p>
     <div class="toolbar">
       <input id="nearbyQuery" placeholder="Ex : téléphone, restaurant, coiffeur, garage">
       <input id="nearbyCity" placeholder="Ville ou secteur">
-      <button class="alt" onclick="openNearby()">Ouvrir Maps</button>
-      <button onclick="useGeo()">Me localiser</button>
+      <button class="alt" type="button" onclick="openNearby()">Ouvrir Maps</button>
+      <button type="button" onclick="useGeo()">Autoriser la géolocalisation</button>
     </div>
     <div class="grid" id="nearbyCards"></div>
   </section>
 
-  <section id="merchant" class="section hidden">
-    <h2>Espace commerçant connecté</h2>
-    <p class="sub">Le commerçant propose une offre. Le formulaire est connecté à Netlify Forms. Après envoi, retour accueil pour éviter toute page 404.</p>
-    <form name="demande-commercant" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/">
-      <input type="hidden" name="form-name" value="demande-commercant">
-      <p class="honeypot"><label>Ne pas remplir <input name="bot-field"></label></p>
-      <div class="formgrid">
-        <input id="mName" name="commerce" placeholder="Nom commerce / activité" required>
-        <input id="mCity" name="ville" placeholder="Ville" required>
-        <input id="mOffer" name="offre" placeholder="Offre / promo">
-        <input name="email" type="email" placeholder="Email de contact" required>
-      </div>
-      <textarea id="mDesc" name="description" placeholder="Description de l’offre"></textarea>
-      <div class="formgrid">
-        <input id="mLink" name="lien" placeholder="Lien / téléphone / contact">
-        <select id="mCategory" name="categorie"><option>Bon plan local</option><option>Restaurant</option><option>Service</option><option>Commerce</option><option>Publicité partenaire</option></select>
-        <select id="mSub" name="formule"><option>Découverte</option><option>Visible</option><option>Boost</option><option>Sur mesure</option></select>
-        <button type="submit" class="alt">Envoyer à Trouvéo</button>
-      </div>
-    </form>
-    <div class="actions"><button onclick="submitMerchantLocal()">Ajouter aussi en test local</button><button class="darkbtn" onclick="show('subscriptions')">Voir formules</button></div>
-    <div class="notice">Après envoi, les demandes apparaissent dans Netlify → Forms.</div>
-  </section>
-
-  <section id="subscriptions" class="section hidden">
-    <h2>Abonnements personnalisés</h2>
-    <p class="sub">Formules modifiables pour commerçants et partenaires. Paiement réel à brancher plus tard avec Stripe.</p>
-    <div class="grid" id="subsGrid"></div>
-    <form name="demande-publicite" method="POST" data-netlify="true" netlify-honeypot="bot-field-2" action="/" class="section">
-      <input type="hidden" name="form-name" value="demande-publicite">
-      <p class="honeypot"><label>Ne pas remplir <input name="bot-field-2"></label></p>
-      <h3>Demande publicité / abonnement</h3>
-      <div class="formgrid">
-        <input name="nom" placeholder="Nom / entreprise" required>
-        <input name="email" type="email" placeholder="Email" required>
-        <select name="formule"><option>Découverte</option><option>Visible</option><option>Boost</option><option>Sur mesure</option></select>
-        <input name="budget" placeholder="Budget / besoin">
-      </div>
-      <textarea name="message" placeholder="Message"></textarea>
-      <button type="submit" class="alt">Envoyer demande publicité</button>
-    </form>
-  </section>
-
-  <section id="publicity" class="section hidden">
-    <h2>Publicité prête à poster</h2>
-    <p class="sub">Textes connectés au lien officiel et au QR code. Utilise Copier ou Partager.</p>
-    <div class="cols">
-      <div class="mini">
-        <h3>QR officiel</h3>
-        <img class="qrSmall" src="assets/qr-trouveo-market.png" alt="QR Trouvéo Market">
-        <p class="sub">https://trouveo-market.netlify.app</p>
-      </div>
-      <div class="mini">
-        <h3>Action rapide</h3>
-        <div class="actions">
-          <button onclick="copyLink()">Copier lien</button>
-          <a class="btn alt" target="_blank" href="https://wa.me/?text=Trouv%C3%A9o%20Market%20%3A%20https%3A%2F%2Ftrouveo-market.netlify.app">WhatsApp</a>
-        </div>
-      </div>
-    </div>
-    <div id="adTexts" class="grid"></div>
-  </section>
-
-  <section id="owner" class="section hidden adminPanel">
-    <h2>Administration</h2>
-    <div class="notice adminBanner">L’accès propriétaire public est actuellement désactivé. Aucune modification depuis le navigateur n’est autorisée tant qu’une authentification serveur fiable n’est pas mise en place.</div>
-    <p class="sub">La boutique reste consultable, les formulaires Netlify et les liens Amazon restent actifs.</p>
-  </section>
-
   <section class="section">
-    <h2>Connexions actives dans cette version</h2>
-    <div class="cols">
-      <div class="mini"><h3>Netlify Forms</h3><p class="sub">Demandes commerçants et publicités envoyées vers le tableau Netlify Forms après redéploiement.</p></div>
-      <div class="mini"><h3>Google Maps</h3><p class="sub">Recherche autour par ville ou position, sans clé API.</p></div>
-      <div class="mini"><h3>QR officiel</h3><p class="sub">QR lié à https://trouveo-market.netlify.app</p></div>
-      <div class="mini"><h3>Partage</h3><p class="sub">Textes prêts WhatsApp, TikTok, client et commerçant.</p></div>
-      <div class="mini"><h3>Affiliation</h3><p class="sub">Emplacements prêts pour liens affiliés validés.</p></div>
-      <div class="mini"><h3>Stripe / Supabase</h3><p class="sub">Prévu en phase suivante avec comptes officiels.</p></div>
-    </div>
-  </section>
-
-  <section class="section" id="mentions-affiliation">
     <h2>Transparence affiliation</h2>
-    <p class="sub">Certains liens de la boutique sont des liens affiliés Amazon Partenaires. Si un achat est effectué après un clic, Trouvéo Market peut percevoir une commission sans surcoût pour le visiteur.</p>
+    <p class="sub">Les liens de la boutique restent des recherches affiliées Amazon avec le tag partenaire trouveomarket-21. Une mention de transparence affiliation est visible pour les visiteurs.</p>
   </section>
 
-  <div class="footer">Trouvéo Market — version sécurisée et nettoyée — 2026-07-13. Aucune authentification publique n’est intégrée dans cette version.</div>
+  <div class="footer">Trouvéo Market — vitrine publique professionnelle — 2026-07-13.</div>
 </div>
 <script src="app.js"></script>
 </body>
