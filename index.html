@@ -20,7 +20,7 @@
     <p class="sub">Boutique, bons plans, commerçants, publicités, abonnements personnalisés, QR code officiel, vocal, géolocalisation, formulaires Netlify et espace propriétaire dans une seule plateforme.</p>
     <div class="nav">
       <button onclick="show('market')">Accueil</button>
-      <button class="alt" onclick="show('shop')">Boutique</button>
+      <button class="alt" onclick="show('shop')">Boutique</button><button class="darkbtn" onclick="resetCatalogue()">Réinitialiser boutique</button>
       <button class="alt" onclick="show('deals')">Bons plans</button>
       <button class="darkbtn" onclick="show('nearby')">Autour de moi</button>
       <button class="darkbtn" onclick="show('merchant')">Commerçant</button>
@@ -62,6 +62,11 @@
       <div class="mini"><h3>📣 Publicité</h3><p class="sub">Textes prêts pour client, commerçant, WhatsApp et TikTok.</p></div>
       <div class="mini"><h3>🔐 Propriétaire</h3><p class="sub">Ajout, validation locale, export, abonnements personnalisés.</p></div>
     </div>
+
+    <div class="notice">
+      Catalogue boutique Amazon branché : si les articles ne s’affichent pas après une ancienne version, clique sur <b>Réinitialiser boutique</b>.
+    </div>
+
     <div class="check">
       <div class="ok">✅ QR officiel intégré</div>
       <div class="ok">✅ Publicité intégrée</div>
@@ -92,8 +97,8 @@
 
   <section id="merchant" class="section hidden">
     <h2>Espace commerçant connecté</h2>
-    <p class="sub">Le commerçant propose une offre. Le formulaire est préparé pour Netlify Forms après redéploiement.</p>
-    <form name="demande-commercant" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci.html">
+    <p class="sub">Le commerçant propose une offre. Le formulaire est connecté à Netlify Forms. Après envoi, retour accueil pour éviter toute page 404.</p>
+    <form name="demande-commercant" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/">
       <input type="hidden" name="form-name" value="demande-commercant">
       <p class="honeypot"><label>Ne pas remplir <input name="bot-field"></label></p>
       <div class="formgrid">
@@ -111,14 +116,14 @@
       </div>
     </form>
     <div class="actions"><button onclick="submitMerchantLocal()">Ajouter aussi en test local</button><button class="darkbtn" onclick="show('subscriptions')">Voir formules</button></div>
-    <div class="notice">Après redéploiement, les demandes apparaîtront dans Netlify → Forms.</div>
+    <div class="notice">Après envoi, les demandes apparaissent dans Netlify → Forms.</div>
   </section>
 
   <section id="subscriptions" class="section hidden">
     <h2>Abonnements personnalisés</h2>
     <p class="sub">Formules modifiables pour commerçants et partenaires. Paiement réel à brancher plus tard avec Stripe.</p>
     <div class="grid" id="subsGrid"></div>
-    <form name="demande-publicite" method="POST" data-netlify="true" netlify-honeypot="bot-field-2" action="/merci.html" class="section">
+    <form name="demande-publicite" method="POST" data-netlify="true" netlify-honeypot="bot-field-2" action="/" class="section">
       <input type="hidden" name="form-name" value="demande-publicite">
       <p class="honeypot"><label>Ne pas remplir <input name="bot-field-2"></label></p>
       <h3>Demande publicité / abonnement</h3>
@@ -162,10 +167,10 @@
       <p class="sub">Code démo : 1234.</p>
     </div>
     <div id="ownerTools" class="ownerOnly">
-      <h3>Ajouter produit, bon plan, service ou publicité</h3>
+      <h3>Ajouter produit affilié, bon plan, service ou publicité</h3>
       <div class="formgrid">
         <input id="oTitle" placeholder="Titre">
-        <select id="oType"><option value="deal">Bon plan</option><option value="product">Produit boutique</option><option value="service">Service</option></select>
+        <select id="oType"><option value="deal">Bon plan</option><option value="product">Produit affilié / Boutique</option><option value="service">Service</option></select>
         <input id="oPrice" placeholder="Prix / formule">
         <input id="oCategory" placeholder="Catégorie">
         <input id="oCity" placeholder="Ville / zone">
@@ -197,6 +202,12 @@
       <div class="mini"><h3>Stripe / Supabase</h3><p class="sub">Prévu en phase suivante avec comptes officiels.</p></div>
     </div>
   </section>
+
+  <section class="section" id="mentions-affiliation">
+    <h2>Transparence affiliation</h2>
+    <p class="sub">Certains liens de la boutique peuvent être des liens affiliés Amazon Partenaires. Si un achat est effectué après un clic, Trouvéo Market peut recevoir une commission, sans coût supplémentaire pour le visiteur.</p>
+  </section>
+
   <div class="footer">Trouvéo Market — version finale connectée publicité + correctif liens — 2026-07-11. Aucun mot de passe réel inclus.</div>
 </div>
 <script src="app.js"></script>

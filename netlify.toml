@@ -1,0 +1,17 @@
+# Trouvéo Market — correctif anti-404
+# Corrige les retours après formulaire commerçant/publicité.
+
+[[redirects]]
+  from = "/merci.html"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/merci"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
