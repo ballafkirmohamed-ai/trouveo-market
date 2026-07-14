@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Trouvéo Market — vitrine publique professionnelle</title>
-<meta name="description" content="Trouvéo Market est une vitrine publique professionnelle pour découvrir des offres, des bons plans, des services et des recherches locales autour de soi.">
+<title>Trouvéo Market — version officielle</title>
+<meta name="description" content="Trouvéo Market : produits utiles, bons plans et recherches locales autour de soi.">
 <meta property="og:title" content="Trouvéo Market">
-<meta property="og:description" content="Vitrine publique professionnelle pour découvrir des offres, services et bons plans autour de soi.">
-<meta property="og:url" content="https://trouveo-market.netlify.app">
+<meta property="og:description" content="Boutique affiliée, bons plans et services autour de soi.">
+<meta property="og:url" content="https://trouveo-mark.netlify.app">
 <meta property="og:type" content="website">
 <link rel="manifest" href="manifest.json">
 <link rel="stylesheet" href="style.css">
@@ -15,60 +15,42 @@
 <body>
 <div class="wrap" id="app">
   <section class="hero">
-    <span class="badge">Vitrine publique professionnelle</span>
+    <span class="badge">Version officielle • GitHub → Netlify</span>
     <h1>Trouvéo Market</h1>
-    <p class="sub">Découvrez une présentation claire de produits utiles, bons plans et services autour de vous, avec des liens affiliés transparents et un accès rapide par QR code.</p>
+    <p class="sub">Produits utiles, bons plans et recherches locales, avec des liens affiliés transparents et une géolocalisation simple.</p>
     <div class="nav">
-      <button type="button" onclick="show('market')">Accueil</button>
-      <button class="alt" type="button" onclick="show('shop')">Boutique</button>
-      <button class="alt" type="button" onclick="show('deals')">Bons plans</button>
-      <button class="darkbtn" type="button" onclick="show('nearby')">Autour de moi</button>
-      <button class="darkbtn" type="button" onclick="showQR()">QR code</button>
+      <button onclick="show('market')">Accueil</button>
+      <button class="alt" onclick="show('shop')">Boutique</button>
+      <button class="alt" onclick="show('deals')">Bons plans</button>
+      <button class="darkbtn" onclick="show('nearby')">Autour de moi</button>
+      <button class="darkbtn" onclick="showQR()">QR code</button>
     </div>
     <div class="toolbar">
-      <input id="q" placeholder="Chercher : téléphone, restaurant, rangement, service…" oninput="render()">
+      <input id="q" placeholder="Chercher un produit, une catégorie ou un service…" oninput="render()">
       <select id="typeFilter" onchange="render()">
-        <option value="">Tout</option>
-        <option value="product">Boutique</option>
-        <option value="deal">Bons plans</option>
-        <option value="service">Services</option>
+        <option value="">Tout</option><option value="product">Boutique</option><option value="deal">Bons plans</option>
       </select>
-      <button type="button" onclick="startVoice()">🎙️ Parler</button>
-      <button class="alt" type="button" onclick="useGeo()">📍 Localiser</button>
+      <button onclick="startVoice()">🎙️ Parler</button>
+      <button class="alt" onclick="useGeo()">📍 Localiser</button>
     </div>
     <div id="locationStatus" class="notice hidden"></div>
     <div id="qrBox" class="section hidden">
-      <h2>QR code Trouvéo Market</h2>
-      <p class="sub">QR officiel connecté à : <b>https://trouveo-market.netlify.app</b></p>
+      <h2>QR code officiel</h2>
+      <p class="sub">Accès direct à <b>https://trouveo-mark.netlify.app</b></p>
       <img id="qrImg" src="assets/qr-trouveo-market.png" alt="QR code Trouvéo Market">
-      <div class="actions">
-        <button class="alt" type="button" onclick="downloadQR()">Télécharger QR</button>
-        <button type="button" onclick="copyLink()">Copier le lien</button>
-      </div>
+      <div class="actions"><button class="alt" onclick="downloadQR()">Télécharger QR</button><button onclick="copyLink()">Copier le lien</button></div>
     </div>
   </section>
 
   <section id="market" class="section">
-    <h2>Une vitrine publique claire et professionnelle</h2>
+    <h2>La version officielle, enrichie sans doublon</h2>
     <div class="cols">
-      <div class="mini"><h3>🛍️ Boutique</h3><p class="sub">Des recherches utiles et des liens affiliés transparents, avec mention d’affiliation sur chaque parcours.</p></div>
-      <div class="mini"><h3>🔥 Bons plans</h3><p class="sub">Des suggestions locales et des offres à découvrir sans exposer d’espace interne.</p></div>
-      <div class="mini"><h3>📍 Autour de moi</h3><p class="sub">Des recherches Google Maps liées à votre position ou à une ville saisie.</p></div>
-      <div class="mini"><h3>📲 QR code</h3><p class="sub">Un accès simple à partager sur mobile, ordinateur et supports imprimés.</p></div>
+      <div class="mini"><h3>🛍️ Boutique</h3><p class="sub">22 produits affiliés réels, classés et dédupliqués.</p></div>
+      <div class="mini"><h3>📍 Autour de moi</h3><p class="sub">Recherche Google Maps avec position ou ville saisie.</p></div>
+      <div class="mini"><h3>📲 QR code</h3><p class="sub">Lien unique vers le site officiel Netlify.</p></div>
+      <div class="mini"><h3>🔒 Sécurité</h3><p class="sub">Aucun espace propriétaire ou administratif n’est exposé au public.</p></div>
     </div>
-
-    <div class="notice">
-      Cette version publique met en avant une présentation professionnelle de Trouvéo Market, sans exposer les espaces internes ou les fonctions d’administration.
-    </div>
-
-    <div class="check">
-      <div class="ok">✅ QR officiel intégré</div>
-      <div class="ok">✅ Géolocalisation active</div>
-      <div class="ok">✅ Google Maps local</div>
-      <div class="ok">✅ Micro vocal</div>
-      <div class="ok">✅ Liens Amazon affiliés</div>
-      <div class="ok">✅ Transparence affiliation</div>
-    </div>
+    <div class="notice">En tant que Partenaire Amazon, Trouvéo Market réalise un bénéfice sur les achats remplissant les conditions requises.</div>
   </section>
 
   <section id="shop" class="grid hidden"></section>
@@ -76,58 +58,46 @@
 
   <section id="nearby" class="section hidden">
     <h2>Autour de moi</h2>
-    <p class="sub">Recherchez des commerces, services ou adresses utiles autour de vous, avec géolocalisation ou ville indiquée.</p>
+    <p class="sub">Autorisez la localisation ou saisissez une ville.</p>
     <div class="toolbar">
-      <input id="nearbyQuery" placeholder="Ex : téléphone, restaurant, coiffeur, garage">
+      <input id="nearbyQuery" placeholder="Restaurant, chocolatier, pharmacie…">
       <input id="nearbyCity" placeholder="Ville ou secteur">
-      <button class="alt" type="button" onclick="openNearby()">Ouvrir Maps</button>
-      <button type="button" onclick="useGeo()">Autoriser la géolocalisation</button>
+      <button class="alt" onclick="openNearby()">Ouvrir Maps</button>
+      <button onclick="useGeo()">Autoriser la localisation</button>
     </div>
     <div class="grid" id="nearbyCards"></div>
   </section>
 
+
+  <section class="section" id="product-intake">
+    <h2>Ajouter un lien produit à trier</h2>
+    <p class="sub">Collez un ou plusieurs liens Amazon ou Awin. Ils seront envoyés dans la file de tri avant toute publication.</p>
+    <form class="card compact" name="product-intake" method="POST" data-netlify="true" action="/merci.html">
+      <input type="hidden" name="form-name" value="product-intake">
+      <input type="hidden" name="bot-field">
+      <input type="email" name="email" placeholder="Votre email" required>
+      <textarea name="links" placeholder="Collez ici les liens, un par ligne…" required></textarea>
+      <textarea name="note" placeholder="Note ou catégorie souhaitée (facultatif)"></textarea>
+      <button type="submit">Envoyer à l’agent de tri</button>
+    </form>
+    <div class="notice">Aucun lien envoyé ici n’est publié automatiquement. Chaque produit doit être vérifié et validé.</div>
+  </section>
+
   <section class="section">
-    <h2>Formulaires publics</h2>
-    <p class="sub">Les commerçants, la publicité et les abonnements peuvent utiliser les formulaires publics ci-dessous. Les espaces internes et d’administration restent entièrement cachés.</p>
+    <h2>Contacts publics</h2>
     <div class="cols">
-      <form class="card" name="merchant" method="POST" data-netlify="true" action="/merci.html">
-        <input type="hidden" name="form-name" value="merchant">
-        <input type="hidden" name="bot-field">
-        <h3>Commerçant</h3>
-        <p><label>Nom<input type="text" name="name" placeholder="Votre nom" required></label></p>
-        <p><label>Entreprise<input type="text" name="company" placeholder="Nom de l’entreprise"></label></p>
-        <p><label>Email<input type="email" name="email" placeholder="vous@example.com" required></label></p>
-        <p><label>Message<textarea name="message" placeholder="Expliquez votre besoin"></textarea></label></p>
-        <button type="submit">Envoyer</button>
+      <form class="card compact" name="merchant" method="POST" data-netlify="true" action="/merci.html">
+        <input type="hidden" name="form-name" value="merchant"><input type="hidden" name="bot-field">
+        <h3>Commerçant</h3><input name="name" placeholder="Nom" required><input name="company" placeholder="Entreprise"><input type="email" name="email" placeholder="Email" required><textarea name="message" placeholder="Votre demande"></textarea><button type="submit">Envoyer</button>
       </form>
-      <form class="card" name="publicity" method="POST" data-netlify="true" action="/merci.html">
-        <input type="hidden" name="form-name" value="publicity">
-        <input type="hidden" name="bot-field">
-        <h3>Publicité</h3>
-        <p><label>Nom<input type="text" name="name" placeholder="Votre nom" required></label></p>
-        <p><label>Entreprise<input type="text" name="company" placeholder="Nom de la structure"></label></p>
-        <p><label>Email<input type="email" name="email" placeholder="vous@example.com" required></label></p>
-        <p><label>Projet<textarea name="message" placeholder="Décrivez votre projet de visibilité"></textarea></label></p>
-        <button type="submit">Envoyer</button>
-      </form>
-      <form class="card" name="subscription" method="POST" data-netlify="true" action="/merci.html">
-        <input type="hidden" name="form-name" value="subscription">
-        <input type="hidden" name="bot-field">
-        <h3>Abonnement</h3>
-        <p><label>Nom<input type="text" name="name" placeholder="Votre nom" required></label></p>
-        <p><label>Email<input type="email" name="email" placeholder="vous@example.com" required></label></p>
-        <p><label>Intérêt<select name="interest"><option value="infos">Recevoir des infos</option><option value="offres">Recevoir les offres</option><option value="newsletter">Newsletter</option></select></label></p>
-        <button type="submit">S’inscrire</button>
+      <form class="card compact" name="publicity" method="POST" data-netlify="true" action="/merci.html">
+        <input type="hidden" name="form-name" value="publicity"><input type="hidden" name="bot-field">
+        <h3>Publicité</h3><input name="name" placeholder="Nom" required><input name="company" placeholder="Entreprise"><input type="email" name="email" placeholder="Email" required><textarea name="message" placeholder="Projet de visibilité"></textarea><button type="submit">Envoyer</button>
       </form>
     </div>
   </section>
 
-  <section class="section">
-    <h2>Transparence affiliation</h2>
-    <p class="sub">Les liens de la boutique restent des recherches affiliées Amazon avec le tag partenaire trouveomarket-21. Une mention de transparence affiliation est visible pour les visiteurs.</p>
-  </section>
-
-  <div class="footer">Trouvéo Market — vitrine publique professionnelle — 2026-07-13.</div>
+  <div class="footer">Trouvéo Market — version officielle — mises à jour continues depuis GitHub.</div>
 </div>
 <script src="app.js"></script>
 </body>
