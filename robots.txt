@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://trouveo-mark.netlify.app/sitemap.xml
