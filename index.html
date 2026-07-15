@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Trouvéo Market — version officielle</title>
-<meta name="description" content="Trouvéo Market : produits utiles, bons plans et recherches locales autour de soi.">
+<meta name="description" content="Trouvéo Market : produits affiliés, recherches multi-sites et commerces autour de soi.">
 <meta property="og:title" content="Trouvéo Market">
-<meta property="og:description" content="Boutique affiliée, bons plans et services autour de soi.">
+<meta property="og:description" content="Boutique affiliée, recherches multi-sites et commerces autour de soi.">
 <meta property="og:url" content="https://trouveo-mark.netlify.app">
 <meta property="og:type" content="website">
 <link rel="manifest" href="manifest.json">
@@ -17,19 +17,20 @@
   <section class="hero">
     <span class="badge">Version officielle • GitHub → Netlify</span>
     <h1>Trouvéo Market</h1>
-    <p class="sub">Produits utiles, bons plans et recherches locales, avec des liens affiliés transparents et une géolocalisation simple.</p>
+    <p class="sub">Produits affiliés, recherches multi-sites et commerces autour de soi. Aucun meilleur prix n’est annoncé sans comparaison réelle.</p>
     <div class="nav">
       <button data-section="market">Accueil</button>
       <button class="alt" data-section="shop">Boutique</button>
-      <button class="alt" data-section="deals">Bons plans</button>
+      <button class="alt" data-section="deals">Rechercher des offres</button>
       <button class="darkbtn" data-section="nearby">Autour de moi</button>
       <button class="darkbtn" id="showQrButton">QR code</button>
     </div>
     <div class="toolbar">
-      <input id="q" placeholder="Chercher un produit, une catégorie ou un service…">
+      <input id="q" placeholder="Chercher un produit ou une catégorie…">
       <select id="typeFilter">
-        <option value="">Tout</option><option value="product">Boutique</option><option value="deal">Bons plans</option>
+        <option value="">Tout</option><option value="product">Boutique</option><option value="deal">Recherche multi-sites</option>
       </select>
+      <button id="searchButton">🔎 Rechercher</button>
       <button id="voiceButton">🎙️ Parler</button>
       <button class="alt" id="geoButton">📍 Localiser</button>
     </div>
@@ -43,26 +44,26 @@
   </section>
 
   <section id="market" class="section">
-    <h2>La version officielle, enrichie sans doublon</h2>
+    <h2>Une vitrine utile, sans promesse mensongère</h2>
     <div class="cols">
-      <div class="mini"><h3>🛍️ Boutique</h3><p class="sub">22 produits affiliés réels, classés et dédupliqués.</p></div>
+      <div class="mini"><h3>🛍️ Boutique</h3><p class="sub">Produits affiliés classés et dédupliqués.</p></div>
+      <div class="mini"><h3>🔎 Recherche multi-sites</h3><p class="sub">Ouvre les recherches sur plusieurs plateformes, sans prétendre calculer automatiquement le meilleur prix.</p></div>
       <div class="mini"><h3>📍 Autour de moi</h3><p class="sub">Recherche Google Maps avec position ou ville saisie.</p></div>
-      <div class="mini"><h3>📲 QR code</h3><p class="sub">Lien unique vers le site officiel Netlify.</p></div>
       <div class="mini"><h3>🔒 Sécurité</h3><p class="sub">Aucun espace propriétaire ou administratif n’est exposé au public.</p></div>
     </div>
-    <div class="notice">En tant que Partenaire Amazon, Trouvéo Market réalise un bénéfice sur les achats remplissant les conditions requises.</div>
+    <div class="notice">Les prix, disponibilités et conditions sont ceux affichés par chaque plateforme au moment de la consultation. Trouvéo ne garantit pas encore le prix le plus bas.</div>
   </section>
 
   <section id="shop" class="grid hidden"></section>
-  <section id="deals" class="grid hidden"></section>
+  <section id="deals" class="hidden"></section>
 
   <section id="nearby" class="section hidden">
     <h2>Autour de moi</h2>
-    <p class="sub">Autorisez la localisation ou saisissez une ville.</p>
+    <p class="sub">Autorisez la localisation ou saisissez une ville. Cette fonction recherche des commerces proches, pas des promotions garanties.</p>
     <div class="toolbar">
-      <input id="nearbyQuery" placeholder="Restaurant, chocolatier, pharmacie…">
+      <input id="nearbyQuery" placeholder="Restaurant, boulangerie, pharmacie…">
       <input id="nearbyCity" placeholder="Ville ou secteur">
-      <button class="alt" id="openNearbyButton">Ouvrir Maps</button>
+      <button class="alt" id="openNearbyButton">🔎 Chercher sur Maps</button>
       <button id="geoNearbyButton">Autoriser la localisation</button>
     </div>
     <div class="grid" id="nearbyCards"></div>
@@ -82,8 +83,9 @@
     </div>
   </section>
 
-  <div class="footer">Trouvéo Market — version officielle du 14 juillet 2026 — mises à jour continues depuis GitHub.</div>
+  <div class="footer">Trouvéo Market — version officielle — informations transparentes et mises à jour depuis GitHub.</div>
 </div>
 <script src="app.js"></script>
+<script src="honest-search.js"></script>
 </body>
 </html>
