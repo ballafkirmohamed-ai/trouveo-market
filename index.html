@@ -19,26 +19,26 @@
     <h1>Trouvéo Market</h1>
     <p class="sub">Produits utiles, bons plans et recherches locales, avec des liens affiliés transparents et une géolocalisation simple.</p>
     <div class="nav">
-      <button onclick="show('market')">Accueil</button>
-      <button class="alt" onclick="show('shop')">Boutique</button>
-      <button class="alt" onclick="show('deals')">Bons plans</button>
-      <button class="darkbtn" onclick="show('nearby')">Autour de moi</button>
-      <button class="darkbtn" onclick="showQR()">QR code</button>
+      <button data-section="market">Accueil</button>
+      <button class="alt" data-section="shop">Boutique</button>
+      <button class="alt" data-section="deals">Bons plans</button>
+      <button class="darkbtn" data-section="nearby">Autour de moi</button>
+      <button class="darkbtn" id="showQrButton">QR code</button>
     </div>
     <div class="toolbar">
-      <input id="q" placeholder="Chercher un produit, une catégorie ou un service…" oninput="render()">
-      <select id="typeFilter" onchange="render()">
+      <input id="q" placeholder="Chercher un produit, une catégorie ou un service…">
+      <select id="typeFilter">
         <option value="">Tout</option><option value="product">Boutique</option><option value="deal">Bons plans</option>
       </select>
-      <button onclick="startVoice()">🎙️ Parler</button>
-      <button class="alt" onclick="useGeo()">📍 Localiser</button>
+      <button id="voiceButton">🎙️ Parler</button>
+      <button class="alt" id="geoButton">📍 Localiser</button>
     </div>
     <div id="locationStatus" class="notice hidden"></div>
     <div id="qrBox" class="section hidden">
       <h2>QR code officiel</h2>
       <p class="sub">Accès direct à <b>https://trouveo-mark.netlify.app</b></p>
       <img id="qrImg" src="assets/qr-trouveo-market.png" alt="QR code Trouvéo Market">
-      <div class="actions"><button class="alt" onclick="downloadQR()">Télécharger QR</button><button onclick="copyLink()">Copier le lien</button></div>
+      <div class="actions"><button class="alt" id="downloadQrButton">Télécharger QR</button><button id="copyLinkButton">Copier le lien</button></div>
     </div>
   </section>
 
@@ -62,25 +62,10 @@
     <div class="toolbar">
       <input id="nearbyQuery" placeholder="Restaurant, chocolatier, pharmacie…">
       <input id="nearbyCity" placeholder="Ville ou secteur">
-      <button class="alt" onclick="openNearby()">Ouvrir Maps</button>
-      <button onclick="useGeo()">Autoriser la localisation</button>
+      <button class="alt" id="openNearbyButton">Ouvrir Maps</button>
+      <button id="geoNearbyButton">Autoriser la localisation</button>
     </div>
     <div class="grid" id="nearbyCards"></div>
-  </section>
-
-
-  <section class="section" id="product-intake">
-    <h2>Ajouter un lien produit à trier</h2>
-    <p class="sub">Collez un ou plusieurs liens Amazon ou Awin. Ils seront envoyés dans la file de tri avant toute publication.</p>
-    <form class="card compact" name="product-intake" method="POST" data-netlify="true" action="/merci.html">
-      <input type="hidden" name="form-name" value="product-intake">
-      <input type="hidden" name="bot-field">
-      <input type="email" name="email" placeholder="Votre email" required>
-      <textarea name="links" placeholder="Collez ici les liens, un par ligne…" required></textarea>
-      <textarea name="note" placeholder="Note ou catégorie souhaitée (facultatif)"></textarea>
-      <button type="submit">Envoyer à l’agent de tri</button>
-    </form>
-    <div class="notice">Aucun lien envoyé ici n’est publié automatiquement. Chaque produit doit être vérifié et validé.</div>
   </section>
 
   <section class="section">
@@ -97,7 +82,7 @@
     </div>
   </section>
 
-  <div class="footer">Trouvéo Market — version officielle — mises à jour continues depuis GitHub.</div>
+  <div class="footer">Trouvéo Market — version officielle du 14 juillet 2026 — mises à jour continues depuis GitHub.</div>
 </div>
 <script src="app.js"></script>
 </body>
