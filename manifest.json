@@ -3,7 +3,7 @@
   "short_name": "Trouvéo",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#070a16",
-  "theme_color": "#111832",
-  "lang": "fr"
+  "background_color": "#f6f8fc",
+  "theme_color": "#0f172a",
+  "description": "Vitrine publique Trouvéo Market."
 }

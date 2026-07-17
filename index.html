@@ -1,91 +1,273 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Trouvéo Market — version officielle</title>
-<meta name="description" content="Trouvéo Market : produits affiliés, recherches multi-sites et commerces autour de soi.">
-<meta property="og:title" content="Trouvéo Market">
-<meta property="og:description" content="Boutique affiliée, recherches multi-sites et commerces autour de soi.">
-<meta property="og:url" content="https://trouveo-mark.netlify.app">
-<meta property="og:type" content="website">
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trouvéo Market — vitrine publique V3</title>
+  <meta name="description" content="Trouvéo Market : sélection utile, comparaison honnête, sources partenaires et services locaux bientôt disponibles.">
+  <meta property="og:title" content="Trouvéo Market">
+  <meta property="og:description" content="Une vitrine claire, colorée et sécurisée pour comparer, découvrir et préparer les services Trouvéo.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://trouveo-mark.netlify.app">
+  <meta name="theme-color" content="#7c3aed">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://ae01.alicdn.com https://*.alicdn.com data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <style>
+    :root{
+      --ink:#111827;--muted:#667085;--white:#fff;--line:rgba(15,23,42,.12);
+      --blue:#2563eb;--cyan:#06b6d4;--violet:#7c3aed;--pink:#ec4899;--orange:#f97316;--yellow:#facc15;--green:#10b981;--navy:#0f172a;
+      --shadow:0 22px 70px rgba(15,23,42,.14);--radius:30px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,Arial,system-ui,sans-serif;color:var(--ink);background:
+      radial-gradient(860px 520px at -8% -10%,rgba(37,99,235,.20),transparent 62%),
+      radial-gradient(760px 460px at 104% 0%,rgba(236,72,153,.20),transparent 58%),
+      radial-gradient(620px 380px at 50% 6%,rgba(250,204,21,.14),transparent 62%),
+      linear-gradient(180deg,#f8fbff 0%,#fff7ed 36%,#eef2ff 100%)}
+    a{color:inherit}
+    .wrap{max-width:1240px;margin:auto;padding:22px 16px 80px}
+    .hero{position:relative;overflow:hidden;border-radius:38px;padding:32px;border:1px solid rgba(255,255,255,.70);box-shadow:var(--shadow);
+      background:linear-gradient(135deg,rgba(15,23,42,.98),rgba(37,99,235,.94) 34%,rgba(124,58,237,.90) 66%,rgba(249,115,22,.88));color:white}
+    .hero:after{content:"";position:absolute;right:-150px;top:-150px;width:380px;height:380px;border-radius:999px;background:rgba(255,255,255,.18)}
+    .hero:before{content:"";position:absolute;left:45%;bottom:-190px;width:430px;height:430px;border-radius:999px;background:rgba(255,255,255,.10)}
+    .hero>*{position:relative;z-index:1}
+    .badge{display:inline-flex;gap:8px;align-items:center;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.32);padding:9px 13px;border-radius:999px;font-weight:950;font-size:13px;box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}
+    h1{font-size:clamp(44px,8vw,88px);line-height:.88;letter-spacing:-.07em;margin:16px 0 14px}
+    h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.045em;margin:0 0 10px}
+    h3{font-size:22px;letter-spacing:-.025em;margin:0}
+    p{line-height:1.55}
+    .sub{font-size:18px;max-width:920px;color:rgba(255,255,255,.88)}
+    .section .sub,.card p,.mini p,.source p{color:var(--muted)}
+    .nav,.actions,.chips{display:flex;gap:10px;flex-wrap:wrap}
+    .nav{margin-top:22px}
+    button,.btn{border:0;border-radius:999px;padding:12px 16px;font-weight:950;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--violet),var(--pink));color:white;box-shadow:0 12px 25px rgba(124,58,237,.23)}
+    .btn.alt,button.alt{background:white;color:#111827;border:1px solid rgba(255,255,255,.2);box-shadow:0 10px 24px rgba(15,23,42,.10)}
+    .btn.green,button.green{background:linear-gradient(135deg,var(--green),#22c55e)}
+    .btn.orange,button.orange{background:linear-gradient(135deg,var(--orange),var(--yellow));color:#111827}
+    .toolbar{display:grid;grid-template-columns:minmax(240px,1fr) 190px auto auto;gap:10px;margin-top:24px}
+    input,select,textarea{width:100%;border:1px solid var(--line);background:white;border-radius:18px;padding:14px 15px;font-size:15px;color:var(--ink);outline:none}
+    input:focus,select:focus,textarea:focus{border-color:var(--violet);box-shadow:0 0 0 4px rgba(124,58,237,.14)}
+    .section{margin-top:22px;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.8);border-radius:var(--radius);padding:24px;box-shadow:0 12px 44px rgba(15,23,42,.08)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:18px}
+    .cols{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;align-items:stretch}
+    .card{background:var(--white);border:1px solid var(--line);border-radius:26px;padding:18px;box-shadow:0 12px 35px rgba(15,23,42,.08);display:flex;flex-direction:column;gap:11px;min-height:280px;transition:.18s transform,.18s box-shadow}
+    .card:hover{transform:translateY(-3px);box-shadow:0 20px 48px rgba(15,23,42,.13)}
+    .tag{width:max-content;max-width:100%;font-size:12px;font-weight:950;color:#fff;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:999px;padding:7px 10px;box-shadow:0 8px 20px rgba(37,99,235,.16)}
+    .price{font-size:18px;font-weight:950;color:#111827;background:linear-gradient(135deg,#fff7ed,#fef3c7);border:1px solid rgba(249,115,22,.20);border-radius:16px;padding:10px}
+    .photo{height:178px;border-radius:22px;background:linear-gradient(135deg,#e0f2fe,#fce7f3);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .photo img{width:100%;height:100%;object-fit:contain;background:white}
+    .photo.placeholder{font-size:64px}
+    .actions{margin-top:auto}
+    .notice{border:1px dashed rgba(249,115,22,.38);background:#fff7ed;color:#9a3412;border-radius:22px;padding:15px;line-height:1.5}
+    .safe{border:1px solid rgba(16,185,129,.24);background:#ecfdf5;color:#047857;border-radius:22px;padding:15px;line-height:1.5}
+    .mini{background:linear-gradient(135deg,#ffffff,#f8fafc);border:1px solid var(--line);border-radius:22px;padding:17px}
+    .mini h3{display:flex;align-items:center;gap:8px}
+    .promo{position:relative;overflow:hidden;background:linear-gradient(135deg,#0f172a,#1d4ed8 42%,#7c3aed 72%,#f97316);color:white;border-color:rgba(255,255,255,.18)}
+    .promo:before{content:"BIENTÔT";position:absolute;right:-34px;top:20px;transform:rotate(35deg);background:linear-gradient(135deg,var(--yellow),var(--orange));color:#111827;font-weight:1000;padding:8px 48px;font-size:13px;box-shadow:0 10px 25px rgba(0,0,0,.25)}
+    .promo p{color:#dbeafe}
+    .promo .tag{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.22)}
+    .flyer{display:grid;grid-template-columns:104px 1fr;gap:14px;align-items:center}
+    .flyer img{width:104px;height:104px;object-fit:cover;border-radius:24px;border:3px solid rgba(255,255,255,.25);background:white;box-shadow:0 12px 30px rgba(0,0,0,.22)}
+    .soon{display:inline-flex;width:max-content;background:rgba(250,204,21,.16);border:1px solid rgba(250,204,21,.35);color:#fef3c7;border-radius:999px;padding:8px 11px;font-weight:1000}
+    .source-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:12px}
+    .source{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 10px 28px rgba(15,23,42,.06)}
+    .hidden{display:none!important}
+    .qr{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+    .qr img{width:142px;background:white;border-radius:18px;border:1px solid var(--line);padding:8px}
+    .footer{margin-top:26px;color:#667085;font-size:13px;text-align:center}
+    .count{font-weight:1000;color:var(--violet)}
+    .small{font-size:13px;color:#667085}
+    form{display:grid;gap:10px}
+    textarea{min-height:110px;resize:vertical}
+    .recap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:16px}
+    .stat{background:white;border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 10px 28px rgba(15,23,42,.06)}
+    .stat b{font-size:28px;color:var(--violet)}
+    @media(max-width:900px){.toolbar,.cols{grid-template-columns:1fr}.hero{padding:23px}.nav button,.actions a,.actions button{width:100%}.flyer{grid-template-columns:1fr}.flyer img{width:100%;height:190px}}
+  </style>
 </head>
 <body>
-<div class="wrap" id="app">
-  <section class="hero">
-    <span class="badge">Version officielle • GitHub → Netlify</span>
+<div class="wrap">
+  <header class="hero">
+    <span class="badge">🎯 Version publique V3 · base unique · prête à valider</span>
     <h1>Trouvéo Market</h1>
-    <p class="sub">Produits affiliés, recherches multi-sites et commerces autour de soi. Aucun meilleur prix n’est annoncé sans comparaison réelle.</p>
-    <div class="nav">
-      <button data-section="market">Accueil</button>
-      <button class="alt" data-section="shop">Boutique</button>
-      <button class="alt" data-section="deals">Rechercher des offres</button>
-      <button class="darkbtn" data-section="nearby">Autour de moi</button>
-      <button class="darkbtn" id="showQrButton">QR code</button>
-    </div>
-    <div class="toolbar">
-      <input id="q" placeholder="Chercher un produit ou une catégorie…">
-      <select id="typeFilter">
-        <option value="">Tout</option><option value="product">Boutique</option><option value="deal">Recherche multi-sites</option>
+    <p class="sub">La vitrine centrale Trouvéo : produits utiles, comparaison honnête, sources partenaires et services bientôt disponibles. Trouvéo reste au centre, les plateformes partenaires viennent ensuite.</p>
+    <nav class="nav" aria-label="Navigation principale">
+      <button onclick="showSection('accueil')">Accueil</button>
+      <button class="alt" onclick="showSection('boutique')">Boutique</button>
+      <button class="alt" onclick="showSection('comparer')">Comparer</button>
+      <button class="alt" onclick="showSection('services')">Services bientôt</button>
+      <button class="alt" onclick="showSection('local')">Autour de moi</button>
+      <button class="alt" onclick="showSection('contact')">Contact</button>
+    </nav>
+    <div class="toolbar" role="search">
+      <input id="searchInput" placeholder="Chercher : frigo, dashcam, aspirateur, tablette, maison…" oninput="renderProducts()">
+      <select id="categoryFilter" onchange="renderProducts()">
+        <option value="">Toutes les catégories</option>
+        <option>Maison</option>
+        <option>Auto</option>
+        <option>High-Tech utile</option>
+        <option>Famille</option>
       </select>
-      <button id="searchButton">🔎 Rechercher</button>
-      <button id="voiceButton">🎙️ Parler</button>
-      <button class="alt" id="geoButton">📍 Localiser</button>
+      <button class="orange" onclick="runCompare()">🔎 Comparer</button>
+      <button class="green" onclick="startVoice()">🎙️ Vocal</button>
     </div>
-    <div id="locationStatus" class="notice hidden"></div>
-    <div id="qrBox" class="section hidden">
-      <h2>QR code officiel</h2>
-      <p class="sub">Accès direct à <b>https://trouveo-mark.netlify.app</b></p>
-      <img id="qrImg" src="assets/qr-trouveo-market.png" alt="QR code Trouvéo Market">
-      <div class="actions"><button class="alt" id="downloadQrButton">Télécharger QR</button><button id="copyLinkButton">Copier le lien</button></div>
-    </div>
-  </section>
+  </header>
 
-  <section id="market" class="section">
-    <h2>Une vitrine utile, sans promesse mensongère</h2>
-    <div class="cols">
-      <div class="mini"><h3>🛍️ Boutique</h3><p class="sub">Produits affiliés classés et dédupliqués.</p></div>
-      <div class="mini"><h3>🔎 Recherche multi-sites</h3><p class="sub">Ouvre les recherches sur plusieurs plateformes, sans prétendre calculer automatiquement le meilleur prix.</p></div>
-      <div class="mini"><h3>📍 Autour de moi</h3><p class="sub">Recherche Google Maps avec position ou ville saisie.</p></div>
-      <div class="mini"><h3>🔒 Sécurité</h3><p class="sub">Aucun espace propriétaire ou administratif n’est exposé au public.</p></div>
-    </div>
-    <div class="notice">Les prix, disponibilités et conditions sont ceux affichés par chaque plateforme au moment de la consultation. Trouvéo ne garantit pas encore le prix le plus bas.</div>
-  </section>
+  <main>
+    <section id="accueil" class="section">
+      <div class="cols">
+        <div>
+          <h2>Une boutique claire, pas une promesse floue</h2>
+          <p class="section-sub">Trouvéo Market aide à découvrir et comparer. Le client vérifie toujours le prix actuel, le vendeur, la livraison, les avis et les conditions sur le site marchand.</p>
+          <div class="recap">
+            <div class="stat"><b>21</b><br>produits visibles</div>
+            <div class="stat"><b>20</b><br>photos AliExpress</div>
+            <div class="stat"><b>2</b><br>services bientôt</div>
+            <div class="stat"><b>0</b><br>espace privé exposé</div>
+          </div>
+        </div>
+        <div class="safe">
+          <b>Contrôle public :</b><br>
+          la version publique ne contient pas d’espace propriétaire, pas de dossier privé, pas de rapport interne et pas d’identifiant confidentiel. Les modules sensibles restent fermés.
+        </div>
+      </div>
+      <div class="grid">
+        <article class="mini"><h3>🛍️ Boutique</h3><p>Produits courts, utiles, lisibles, avec lien marchand et prix actuel à vérifier.</p></article>
+        <article class="mini"><h3>🔎 Comparer</h3><p>Amazon, AliExpress, Jumia, Leboncoin, Marketplace, Google Shopping et local.</p></article>
+        <article class="mini"><h3>📍 Autour</h3><p>Recherche commerces/services proches sans prétendre calculer automatiquement le meilleur prix.</p></article>
+        <article class="mini"><h3>🚧 Bientôt</h3><p>Momo Courses et Monsieur Ballafkir Rénovation visibles en publicité mais fermés.</p></article>
+      </div>
+    </section>
 
-  <section id="shop" class="grid hidden"></section>
-  <section id="deals" class="hidden"></section>
+    <section id="boutique" class="section">
+      <h2>Boutique Trouvéo Market</h2>
+      <p class="section-sub"><span class="count" id="productCount">0</span> produits affichés. Certains liens peuvent être sponsorisés/affiliés. Aucun prix n’est figé : “Voir le prix actuel” reste la règle.</p>
+      <div id="productGrid" class="grid"></div>
+    </section>
 
-  <section id="nearby" class="section hidden">
-    <h2>Autour de moi</h2>
-    <p class="sub">Autorisez la localisation ou saisissez une ville. Cette fonction recherche des commerces proches, pas des promotions garanties.</p>
-    <div class="toolbar">
-      <input id="nearbyQuery" placeholder="Restaurant, boulangerie, pharmacie…">
-      <input id="nearbyCity" placeholder="Ville ou secteur">
-      <button class="alt" id="openNearbyButton">🔎 Chercher sur Maps</button>
-      <button id="geoNearbyButton">Autoriser la localisation</button>
-    </div>
-    <div class="grid" id="nearbyCards"></div>
-  </section>
+    <section id="comparer" class="section hidden">
+      <h2>Comparer les sources</h2>
+      <p class="section-sub">Tapez votre besoin puis comparez les sources. Jumia est gardé en source officielle Maroc, sans faux lien affilié produit.</p>
+      <div id="compareGrid" class="source-list"></div>
+      <div class="notice" style="margin-top:16px"><b>Transparence :</b> tant que les vrais liens JForce produit ne sont pas fournis, Jumia reste une recherche officielle et non une fiche produit affiliée inventée.</div>
+    </section>
 
-  <section class="section">
-    <h2>Contacts publics</h2>
-    <div class="cols">
-      <form class="card compact" name="merchant" method="POST" data-netlify="true" action="/merci.html">
-        <input type="hidden" name="form-name" value="merchant"><input type="hidden" name="bot-field">
-        <h3>Commerçant</h3><input name="name" placeholder="Nom" required><input name="company" placeholder="Entreprise"><input type="email" name="email" placeholder="Email" required><textarea name="message" placeholder="Votre demande"></textarea><button type="submit">Envoyer</button>
-      </form>
-      <form class="card compact" name="publicity" method="POST" data-netlify="true" action="/merci.html">
-        <input type="hidden" name="form-name" value="publicity"><input type="hidden" name="bot-field">
-        <h3>Publicité</h3><input name="name" placeholder="Nom" required><input name="company" placeholder="Entreprise"><input type="email" name="email" placeholder="Email" required><textarea name="message" placeholder="Projet de visibilité"></textarea><button type="submit">Envoyer</button>
-      </form>
-    </div>
-  </section>
+    <section id="services" class="section hidden">
+      <h2>Services Trouvéo bientôt disponibles</h2>
+      <p class="section-sub">On garde la publicité, mais on ferme les portes tant que les parcours ne sont pas prêts. C’est propre, professionnel et honnête.</p>
+      <div class="grid">
+        <article class="card promo">
+          <div class="tag">Module fermé · publicité visible</div>
+          <div class="flyer">
+            <img src="assets/flyer-renovation-pro.png" alt="Flyer Monsieur Ballafkir Rénovation">
+            <div>
+              <h3>🏗️ Monsieur Ballafkir Rénovation</h3>
+              <span class="soon">Bientôt disponible</span>
+            </div>
+          </div>
+          <div class="price">En attente — accès verrouillé</div>
+          <p>Future présentation rénovation, conseil ou demande travaux si le cadre professionnel est validé. Aucun devis actif, aucune mise en relation artisan depuis cette vitrine.</p>
+          <div class="actions"><button class="alt" onclick="locked('Monsieur Ballafkir Rénovation')">Voir le statut</button></div>
+        </article>
+        <article class="card promo">
+          <div class="tag">Module fermé · publicité visible</div>
+          <div class="flyer">
+            <img src="assets/flyer-momo-courses.png" alt="Flyer Momo Courses">
+            <div>
+              <h3>🛒 Momo Courses</h3>
+              <span class="soon">Bientôt disponible</span>
+            </div>
+          </div>
+          <div class="price">En réglage — accès verrouillé</div>
+          <p>Future aide pour dicter les courses, générer une liste propre et préparer une commande Drive. Pas de promesse de livraison immédiate.</p>
+          <div class="actions"><button class="alt" onclick="locked('Momo Courses')">Voir le statut</button></div>
+        </article>
+      </div>
+      <div class="notice" style="margin-top:16px">Les flyers sont aussi conservés séparément dans le dossier <b>assets</b> pour une future communication.</div>
+    </section>
 
-  <div class="footer">Trouvéo Market — version officielle — informations transparentes et mises à jour depuis GitHub.</div>
+    <section id="local" class="section hidden">
+      <h2>Autour de moi</h2>
+      <p class="section-sub">Recherche locale simple : besoin + ville. La position reste gérée par le navigateur de l’utilisateur.</p>
+      <div class="toolbar">
+        <input id="nearbyNeed" placeholder="Restaurant, garage, boulangerie, électroménager…">
+        <input id="nearbyCity" placeholder="Ville ou secteur">
+        <button class="orange" onclick="openNearby()">Ouvrir Maps</button>
+        <button class="green" onclick="useGeo()">📍 Autoriser ma position</button>
+      </div>
+      <div class="grid" id="nearbyQuick"></div>
+    </section>
+
+    <section id="contact" class="section hidden">
+      <h2>Contact public</h2>
+      <div class="cols">
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/merci.html" class="card">
+          <input type="hidden" name="form-name" value="contact">
+          <input class="hidden" name="bot-field" autocomplete="off">
+          <h3>Demande générale</h3>
+          <input name="nom" placeholder="Nom" required>
+          <input name="email" type="email" placeholder="Email" required>
+          <textarea name="message" placeholder="Votre demande"></textarea>
+          <button type="submit">Envoyer</button>
+        </form>
+        <div class="card">
+          <h3>QR code officiel</h3>
+          <div class="qr">
+            <img src="assets/qr-trouveo-market.png" alt="QR code Trouvéo Market">
+            <p>Adresse publique prévue :<br><b>https://trouveo-mark.netlify.app</b></p>
+          </div>
+          <p class="small">Déploiement uniquement après validation finale de Mohamed.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Trouvéo Market — V3 publique à valider. Prix, disponibilité, livraison, retours et garanties à vérifier sur chaque plateforme.
+  </footer>
 </div>
-<script src="app.js"></script>
-<script src="honest-search.js"></script>
+
+<script>
+const products=[
+{cat:"High-Tech utile",title:"Apple AirTag",price:"Voir le prix actuel sur Amazon",desc:"Traceur utile pour clés, sac, portefeuille ou bagages.",zone:"France",status:"SiteStripe vérifié — prix non figé",url:"https://amzn.to/4w6rTta",cta:"Voir sur Amazon",emoji:"📍"},
+{cat:"Auto",title:"DDPAI 4K Dash Cam Z60 Pro",price:"Voir le prix actuel sur AliExpress",desc:"Caméra embarquée 4K pour sécuriser les trajets et garder une preuve en cas d’incident.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005008625765702.html",img:"https://ae01.alicdn.com/kf/S27e85bf62e644fe58133123040f4db924.jpg",cta:"Voir sur AliExpress"},
+{cat:"Auto",title:"70mai Dash Cam 4K A810 Ultra",price:"Voir le prix actuel sur AliExpress",desc:"Dashcam premium pour conducteurs réguliers, voyages et protection du véhicule.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005011606774220.html",img:"https://ae01.alicdn.com/kf/Scf319523610a4a82b6eda94508d8e7b7r.jpg",cta:"Voir sur AliExpress"},
+{cat:"High-Tech utile",title:"GL.iNet Flint 2 GL-MT6000 Router",price:"Voir le prix actuel sur AliExpress",desc:"Routeur puissant pour maison, bureau, télétravail et connexion plus stable.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005008647253445.html",img:"https://ae01.alicdn.com/kf/S2aaa8c619aee4e0eba925815b4a8ca38X.jpg",cta:"Voir sur AliExpress"},
+{cat:"High-Tech utile",title:"QCY MeloBuds N70 ANC",price:"Voir le prix actuel sur AliExpress",desc:"Écouteurs sans fil avec réduction de bruit pour appels, transport et musique.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005009361746399.html",img:"https://ae01.alicdn.com/kf/Sd841beb180934b1788f6f2cf58d27e62Y.jpg",cta:"Voir sur AliExpress"},
+{cat:"High-Tech utile",title:"AULA F75 MAX Clavier mécanique",price:"Voir le prix actuel sur AliExpress",desc:"Clavier mécanique pour bureau, gaming et productivité quotidienne.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005008918966109.html",img:"https://ae01.alicdn.com/kf/S8a55d27d5d7348819058f3b075bfd7dd1.png",cta:"Voir sur AliExpress"},
+{cat:"Famille",title:"8BitDo Ultimate 2C Wireless Controller",price:"Voir le prix actuel sur AliExpress",desc:"Manette sans fil pour jeux PC et famille, sous réserve de compatibilité.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005006593373628.html",img:"https://ae01.alicdn.com/kf/S1629ac1f67174542b5c0150115d1a886I.jpg",cta:"Voir sur AliExpress"},
+{cat:"Famille",title:"Tablette Android 10.1 pouces",price:"Voir le prix actuel sur AliExpress",desc:"Tablette économique pour vidéo, maison, école et navigation simple.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005009885478627.html",img:"https://ae01.alicdn.com/kf/Se3f2ac6839d5465681b4372ad4768f55l.jpg",cta:"Voir sur AliExpress"},
+{cat:"High-Tech utile",title:"Xiaomi Pad 7 Global Version",price:"Voir le prix actuel sur AliExpress",desc:"Tablette plus solide pour famille, divertissement et travail léger.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005012157836813.html",img:"https://ae01.alicdn.com/kf/Sd74dae828d7c46279cb3a4815d9a305cy.jpg",cta:"Voir sur AliExpress"},
+{cat:"Auto",title:"WOLFBOX MF200 Electric Air Duster",price:"Voir le prix actuel sur AliExpress",desc:"Souffleur électrique pour nettoyer voiture, clavier, ordinateur et petits espaces.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005010257591019.html",img:"https://ae01.alicdn.com/kf/Sdcd3ff90298f4ea6a4f1a70c848da1393.jpg",cta:"Voir sur AliExpress"},
+{cat:"Maison",title:"Laresar V11 Aspirateur sans fil",price:"Voir le prix actuel sur AliExpress",desc:"Aspirateur sans fil pour entretien quotidien de la maison.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005009893071349.html",img:"https://ae01.alicdn.com/kf/Seef4bea3f07d4010981745fdd56f9ec7F.png",cta:"Voir sur AliExpress"},
+{cat:"Maison",title:"Teendow KF-2501U1 Machine à glace",price:"Voir le prix actuel sur AliExpress",desc:"Idée cuisine et famille pour l’été, boissons fraîches et contenu démonstration.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005012385557130.html",img:"https://ae01.alicdn.com/kf/A4c9768166f244404b5b0b9df2e72c1c6o.jpg",cta:"Voir sur AliExpress"},
+{cat:"Auto",title:"UPPAICE 28L Frigo portable camping",price:"Voir le prix actuel sur AliExpress",desc:"Frigo portable pour voiture, camping, voyage, chantier et sorties famille.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005012278039272.html",img:"https://ae01.alicdn.com/kf/A545d9f05a705478092cf39207b2c78ea2.png",cta:"Voir sur AliExpress"},
+{cat:"Auto",title:"Alpicool Car Refrigerator 20L/30L/40L",price:"Voir le prix actuel sur AliExpress",desc:"Réfrigérateur voiture pour route, famille, sorties et pros en déplacement.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005007294373143.html",img:"https://ae01.alicdn.com/kf/Sec0a238df3604f13968850364b56cccbn.jpg",cta:"Voir sur AliExpress"},
+{cat:"Famille",title:"Mini ventilateur portable pliable",price:"Voir le prix actuel sur AliExpress",desc:"Petit accessoire utile contre la chaleur, simple à utiliser en maison ou déplacement.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005007946074036.html",img:"https://ae01.alicdn.com/kf/Sdfd39cb079384032b4c6d9a224888f5aL.jpg",cta:"Voir sur AliExpress"},
+{cat:"High-Tech utile",title:"Garmin Forerunner 265 / 265s",price:"Voir le prix actuel sur AliExpress",desc:"Montre sport GPS pour course, suivi santé et activité physique.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005009532056052.html",img:"https://ae01.alicdn.com/kf/Sa218e267ef3848ed8a323bed4371519fK.png",cta:"Voir sur AliExpress"},
+{cat:"High-Tech utile",title:"Juzear x KOTO Nebula",price:"Voir le prix actuel sur AliExpress",desc:"Produit audio plus spécialisé pour amateurs de son et accessoires hi-fi.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005012382358820.html",img:"https://ae01.alicdn.com/kf/S5a755ca74662493a8e37b05a5ef2a7f7K.jpg",cta:"Voir sur AliExpress"},
+{cat:"Famille",title:"TAKARA TOMY BEYBLADE X CX-07",price:"Voir le prix actuel sur AliExpress",desc:"Jouet connu pour enfants et cadeaux famille, à contrôler selon l’âge conseillé.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005012590358615.html",img:"https://ae01.alicdn.com/kf/Seb43f9a134304843ba1b78e3337c16036.png",cta:"Voir sur AliExpress"},
+{cat:"Maison",title:"Jsdsolar Hybrid Solar Inverter",price:"Voir le prix actuel sur AliExpress",desc:"Onduleur solaire hybride pour profils techniques, à valider avec prudence avant promotion.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005012395215859.html",img:"https://ae01.alicdn.com/kf/S69422cb44eda4854bafeda2a8994e54cU.jpg",cta:"Voir sur AliExpress"},
+{cat:"High-Tech utile",title:"AMD Ryzen 7 7800X3D",price:"Voir le prix actuel sur AliExpress",desc:"Processeur performant pour PC gaming et production, vendeur à contrôler.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005011786160126.html",img:"https://ae01.alicdn.com/kf/S4e5e8d2459714634b18953b8f943d200V.jpg",cta:"Voir sur AliExpress"},
+{cat:"High-Tech utile",title:"AMD Ryzen 5 9600X",price:"Voir le prix actuel sur AliExpress",desc:"Processeur récent pour configuration PC performante, authenticité à vérifier.",zone:"Maroc / France à vérifier",status:"AliExpress — destination testée",url:"https://www.aliexpress.com/item/1005009156937816.html",img:"https://ae01.alicdn.com/kf/S75e26f88e0aa4e7f8b911cc4dfabea15z.jpg",cta:"Voir sur AliExpress"}];
+const sources=[["Trouvéo Market","Catalogue de la vitrine","#boutique"],["Amazon France","Recherche officielle","https://www.amazon.fr/s?k="],["AliExpress","Recherche officielle","https://www.aliexpress.com/wholesale?SearchText="],["Jumia Maroc","Recherche officielle","https://www.jumia.ma/catalog/?q="],["Leboncoin","Occasion France","https://www.leboncoin.fr/recherche?text="],["Facebook Marketplace","Occasion locale","https://www.facebook.com/marketplace/search/?query="],["Google Shopping","Comparaison large","https://www.google.com/search?tbm=shop&q="],["Cdiscount","Marketplace France","https://www.cdiscount.com/search/10/"],["Autour de moi","Google Maps","https://www.google.com/maps/search/?api=1&query="]];
+const quickLocal=["restaurant","boulangerie","garage","pharmacie","bricolage","électroménager","coiffeur","supermarché","téléphone"];
+let lastCoords=null;
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));}
+function norm(v){return String(v||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");}
+function sponsored(url){return /amzn\.to|amazon\.|aliexpress\.|jumia\./i.test(url)?" sponsored":""}
+function showSection(id){["accueil","boutique","comparer","services","local","contact"].forEach(s=>document.getElementById(s)?.classList.toggle("hidden",s!==id));if(id==="boutique")renderProducts();if(id==="comparer")renderCompare();if(id==="local")renderLocal();location.hash=id}
+function renderProducts(){const q=norm(document.getElementById("searchInput")?.value);const cat=document.getElementById("categoryFilter")?.value||"";const list=products.filter(p=>(!cat||p.cat===cat)&&(!q||norm(`${p.title} ${p.cat} ${p.desc}`).includes(q)));document.getElementById("productCount").textContent=list.length;document.getElementById("productGrid").innerHTML=list.map(p=>`<article class="card"><div class="photo ${p.img?"":"placeholder"}">${p.img?`<img loading="lazy" src="${esc(p.img)}" alt="Photo produit ${esc(p.title)}">`:esc(p.emoji||"🛍️")}</div><div class="tag">${esc(p.cat)}</div><h3>${esc(p.title)}</h3><div class="price">${esc(p.price)}</div><p>${esc(p.desc)}</p><p><b>Zone :</b> ${esc(p.zone)}</p><p><b>Statut :</b> ${esc(p.status)}</p><div class="actions"><a class="btn" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer${sponsored(p.url)}">${esc(p.cta)}</a><button class="alt" onclick="compareText('${esc(p.title)}')">Comparer</button></div></article>`).join("")}
+function renderCompare(){const q=(document.getElementById("searchInput")?.value||"frigo").trim();document.getElementById("compareGrid").innerHTML=sources.map(([name,desc,base])=>{const url=base.startsWith("#")?base:base+encodeURIComponent(q);return `<div class="source"><h3>${esc(name)}</h3><p>${esc(desc)}</p><div class="actions"><a class="btn alt" href="${esc(url)}" target="${base.startsWith("#")?"_self":"_blank"}" rel="noopener noreferrer">Ouvrir</a></div></div>`}).join("")}
+function runCompare(){showSection("comparer")}
+function compareText(text){document.getElementById("searchInput").value=text;showSection("comparer")}
+function renderLocal(){document.getElementById("nearbyQuick").innerHTML=quickLocal.map(x=>`<article class="card" style="min-height:0"><div class="tag">Autour</div><h3>${esc(x)}</h3><p>Recherche rapide dans Google Maps.</p><div class="actions"><button class="alt" onclick="searchNearby('${esc(x)}')">Ouvrir Maps</button></div></article>`).join("")}
+function openNearby(){searchNearby(document.getElementById("nearbyNeed")?.value||"commerce")}
+function searchNearby(need){const city=document.getElementById("nearbyCity")?.value||"";const query=[need,city].filter(Boolean).join(" ");const url=lastCoords?`https://www.google.com/maps/search/${encodeURIComponent(need)}/@${lastCoords.lat},${lastCoords.lng},14z`:`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;window.open(url,"_blank","noopener,noreferrer")}
+function useGeo(){if(!navigator.geolocation){alert("La géolocalisation n’est pas disponible sur ce navigateur.");return}navigator.geolocation.getCurrentPosition(pos=>{lastCoords={lat:pos.coords.latitude,lng:pos.coords.longitude};alert("Position autorisée pour cette recherche locale.")},()=>alert("Position refusée ou indisponible. Vous pouvez saisir une ville."))}
+function startVoice(){const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SpeechRecognition){alert("Le vocal n’est pas disponible sur ce navigateur. Écrivez votre recherche dans la barre.");return}const rec=new SpeechRecognition();rec.lang="fr-FR";rec.interimResults=false;rec.onresult=e=>{document.getElementById("searchInput").value=e.results[0][0].transcript;renderProducts();runCompare()};rec.start()}
+function locked(name){alert(name+" arrive bientôt. Module fermé pour le moment : aucune commande, aucun devis et aucune publication automatique.")}
+renderProducts();if(location.hash){const id=location.hash.replace("#","");if(document.getElementById(id))showSection(id)}
+</script>
 </body>
 </html>
