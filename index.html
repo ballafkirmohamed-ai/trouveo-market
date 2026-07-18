@@ -66,8 +66,8 @@
     .promo:before{content:"BIENTÔT";position:absolute;right:-34px;top:20px;transform:rotate(35deg);background:linear-gradient(135deg,var(--yellow),var(--orange));color:#111827;font-weight:1000;padding:8px 48px;font-size:13px;box-shadow:0 10px 25px rgba(0,0,0,.25)}
     .promo p{color:#dbeafe}
     .promo .tag{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.22)}
-    .flyer{display:grid;grid-template-columns:104px 1fr;gap:14px;align-items:center}
-    .flyer img{width:104px;height:104px;object-fit:cover;border-radius:24px;border:3px solid rgba(255,255,255,.25);background:white;box-shadow:0 12px 30px rgba(0,0,0,.22)}
+    .flyer{display:grid;grid-template-columns:104px 1fr;gap:14px;align-items:start}
+    .flyer img{width:104px;height:auto;aspect-ratio:2/3;object-fit:contain;border-radius:18px;border:3px solid rgba(255,255,255,.25);background:white;box-shadow:0 12px 30px rgba(0,0,0,.22)}
     .soon{display:inline-flex;width:max-content;background:rgba(250,204,21,.16);border:1px solid rgba(250,204,21,.35);color:#fef3c7;border-radius:999px;padding:8px 11px;font-weight:1000}
     .source-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:12px}
     .source{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 10px 28px rgba(15,23,42,.06)}
@@ -82,7 +82,7 @@
     .recap{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:16px}
     .stat{background:white;border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 10px 28px rgba(15,23,42,.06)}
     .stat b{font-size:28px;color:var(--violet)}
-    @media(max-width:900px){.toolbar,.cols{grid-template-columns:1fr}.hero{padding:23px}.nav button,.actions a,.actions button{width:100%}.flyer{grid-template-columns:1fr}.flyer img{width:100%;height:190px}}
+    @media(max-width:900px){.toolbar,.cols{grid-template-columns:1fr}.hero{padding:23px}.nav button,.actions a,.actions button{width:100%}.flyer{grid-template-columns:1fr}.flyer img{width:min(100%,260px);height:auto;aspect-ratio:2/3;object-fit:contain;justify-self:center}}
   </style>
 </head>
 <body>
@@ -139,7 +139,7 @@
       </div>
     </section>
 
-    <section id="boutique" class="section">
+    <section id="boutique" class="section hidden">
       <h2>Boutique Trouvéo Market</h2>
       <p class="section-sub"><span class="count" id="productCount">0</span> produits affichés. Certains liens peuvent être sponsorisés/affiliés. Aucun prix n’est figé : “Voir le prix actuel” reste la règle.</p>
       <div id="productGrid" class="grid"></div>
@@ -267,7 +267,7 @@ function searchNearby(need){const city=document.getElementById("nearbyCity")?.va
 function useGeo(){if(!navigator.geolocation){alert("La géolocalisation n’est pas disponible sur ce navigateur.");return}navigator.geolocation.getCurrentPosition(pos=>{lastCoords={lat:pos.coords.latitude,lng:pos.coords.longitude};alert("Position autorisée pour cette recherche locale.")},()=>alert("Position refusée ou indisponible. Vous pouvez saisir une ville."))}
 function startVoice(){const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SpeechRecognition){alert("Le vocal n’est pas disponible sur ce navigateur. Écrivez votre recherche dans la barre.");return}const rec=new SpeechRecognition();rec.lang="fr-FR";rec.interimResults=false;rec.onresult=e=>{document.getElementById("searchInput").value=e.results[0][0].transcript;renderProducts();runCompare()};rec.start()}
 function locked(name){alert(name+" arrive bientôt. Module fermé pour le moment : aucune commande, aucun devis et aucune publication automatique.")}
-renderProducts();if(location.hash){const id=location.hash.replace("#","");if(document.getElementById(id))showSection(id)}
+renderProducts();const initialSection=location.hash.replace("#","");showSection(["accueil","boutique","comparer","services","local","contact"].includes(initialSection)?initialSection:"accueil")
 </script>
 </body>
 </html>
